@@ -8,11 +8,11 @@ public class C1Runnable {
 	public static void main(String[] args) {
 
 		// 直接传入lambda
-		new Thread(() -> System.out.println("this is a lambda")).run();
+		new Thread(() -> System.out.println("this is a lambda")).start();
 
 		// 按函数式接口传入
 		Runnable runnableVar = () -> System.out.println("this is a lambda var");
-		new Thread(runnableVar).run();
+		new Thread(runnableVar).start();
 
 		// lambda 是一种传入行为的思想
 	}

@@ -12,6 +12,6 @@ public class C1RunnableOldEx implements Runnable{
 	}
 
 	public static void main(String[] args) {
-		new Thread(new C1RunnableOldEx()).run();
+		new Thread(new C1RunnableOldEx()).start();
 	}
 }

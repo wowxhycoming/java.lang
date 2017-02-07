@@ -39,7 +39,7 @@ public class Apple {
 				'}';
 	}
 
-	public List<Apple> getSomeApples() {
+	public static List<Apple> getSomeApples() {
 
 		List<Apple> inventory = Arrays.asList(
 				new Apple(80,"green"),
