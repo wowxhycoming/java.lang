@@ -1,6 +1,7 @@
 java.lang.iml
 java.lang.ipr
 java.lang.iws
-/src
 
 **/java.lang.*.iml
+.idea/
+**/target/
