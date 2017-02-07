@@ -12,6 +12,7 @@
 
 	<modules>
 		<module>java.lang.java8</module>
+		<module>java.lang.materials</module>
 	</modules>
 
 
