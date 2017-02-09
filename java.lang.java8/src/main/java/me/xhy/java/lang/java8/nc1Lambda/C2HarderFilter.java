@@ -15,7 +15,7 @@ public class C2HarderFilter {
 		Data data = new Data();
 		C2HarderFilterOldEx c = new C2HarderFilterOldEx();
 
-		List<Object> list = data.initData();
+		List<Object> list = Data.getSomeData();
 		List<Integer> integers = c.choseInteger(list, o -> {
 			if (o instanceof Integer) return true;
 			return false;
