@@ -12,9 +12,10 @@ public class C2HarderFilterOldEx {
 
 	public static void main(String[] args) {
 
+		Data data = new Data();
 		C2HarderFilterOldEx c = new C2HarderFilterOldEx();
 
-		List<Object> list = Data.getSomeData();
+		List<Object> list = data.initData();
 		List<Integer> integers = c.choseInteger(list, new C2IntegerFilter());
 
 		// 猜测一下结果

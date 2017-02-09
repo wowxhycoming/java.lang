@@ -5,5 +5,5 @@ package me.xhy.java.lang.java8.nc1Lambda.old;
  */
 public interface C2ObjectFilter {
 
-		boolean filter(Object o);
+    boolean filter(Object o);
 }

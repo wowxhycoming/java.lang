@@ -1,9 +1,5 @@
 package me.xhy.java.lang.java8.nc1Lambda;
 
-import me.xhy.java.lang.materials.fruit.Apple;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.*;
 
 /**

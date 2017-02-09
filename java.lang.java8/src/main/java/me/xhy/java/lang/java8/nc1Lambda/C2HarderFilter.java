@@ -12,10 +12,10 @@ public class C2HarderFilter {
 
 	public static void main(String[] args) {
 
+		Data data = new Data();
 		C2HarderFilterOldEx c = new C2HarderFilterOldEx();
 
-		List<Object> list = Data.getSomeData();
-		// lambda 表达式就是函数式接口的实现
+		List<Object> list = data.initData();
 		List<Integer> integers = c.choseInteger(list, o -> {
 			if (o instanceof Integer) return true;
 			return false;
