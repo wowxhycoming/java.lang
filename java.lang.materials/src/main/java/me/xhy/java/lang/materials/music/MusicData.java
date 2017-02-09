@@ -17,7 +17,10 @@ public class MusicData {
 
     public static final List<Artist> membersOfTheBeatles = Arrays.asList(johnLennon, paulMcCartney, georgeHarrison, ringoStarr);
 
-    public static final Artist theBeatles = new Artist("The Beatles", membersOfTheBeatles, "UK");
+//    public static final Artist theBeatles = new Artist("The Beatles", membersOfTheBeatles, "UK");
+    public static final Artist theBeatles = new Artist("The Beatles", membersOfTheBeatles, "London");
+
+    public static final List<Artist> allArtists = Arrays.asList(johnColtrane,johnLennon,paulMcCartney,georgeHarrison,ringoStarr,theBeatles);
 
     public static final Album aLoveSupreme = new Album("A Love Supreme", asList(new Track("Acknowledgement", 467), new Track("Resolution", 442)), asList(johnColtrane));
 
