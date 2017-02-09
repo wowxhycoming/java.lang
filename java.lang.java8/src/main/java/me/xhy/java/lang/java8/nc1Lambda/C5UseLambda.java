@@ -28,7 +28,7 @@ public class C5UseLambda {
 		List<Apple> weightApples = filterApplesByWeight(inventory, 150);
 
 		// 4. 如果 想按所有属性筛选苹果呢 .... ， 如果属性非常多，要组合筛选呢
-		// 按每个属性写一个方法，然后不同的调用；或者写一个包含所有筛选属性参数的方法。
+		// 按每个属性写一个方法，然后不同的调用；或者写一个包含所有筛选属性参数的方法。不写了，会恶心。
 
 		// 5. 设计一个筛选苹果的接口，然后按需求来编写实现类：
 		//  1. 设计一个函数式接口；2. 设计一个应用函数式接口的方法，来接受传递的方法，最终完成筛选。这看起来有点像策略模式
@@ -50,6 +50,7 @@ public class C5UseLambda {
 		});
 
 		List<Integer> evenNumbers = filter(numbers, i -> i%2 == 0);
+		evenNumbers.stream().forEach(System.out::println);
 
 
 
