@@ -6,47 +6,54 @@ import java.util.List;
 /**
  * Created by xuhuaiyu on 2017/2/7.
  */
-public class Apple {
+public class Apple extends Fruit{
 
-	private int weight = 0;
-	private String color = "";
+    private int weight = 0;
+    private String color = "";
 
-	public Apple(int weight, String color){
-		this.weight = weight;
-		this.color = color;
-	}
+    public Apple() {
+    }
 
-	public Integer getWeight() {
-		return weight;
-	}
+    public Apple(int weight) {
+        this.weight = weight;
+    }
 
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
+    public Apple(int weight, String color) {
+        this.weight = weight;
+        this.color = color;
+    }
 
-	public String getColor() {
-		return color;
-	}
+    public Integer getWeight() {
+        return weight;
+    }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
 
-	public String toString() {
-		return "Apple{" +
-				"color='" + color + '\'' +
-				", weight=" + weight +
-				'}';
-	}
+    public String getColor() {
+        return color;
+    }
 
-	public static List<Apple> getSomeApples() {
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-		List<Apple> inventory = Arrays.asList(
-				new Apple(80,"green"),
-				new Apple(155, "green"),
-				new Apple(120, "red"));
+    public String toString() {
+        return "Apple{" +
+                "color='" + color + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 
-		return inventory;
-	}
+    public static List<Apple> getSomeApples() {
+
+        List<Apple> inventory = Arrays.asList(
+                new Apple(80, "green"),
+                new Apple(155, "green"),
+                new Apple(120, "red"));
+
+        return inventory;
+    }
 
 }

@@ -10,12 +10,13 @@ import java.util.List;
 
 /**
  * Created by xuhuaiyu on 2017/2/7.
+ *
+ * 如何面对不停变化的需求
  */
 public class C5UseLambda {
 
 	public static void main(String[] args) {
 
-		// 面对不停变化的需求
 		List<Apple> inventory = Apple.getSomeApples();
 
 		// 1. 只能筛选绿色的苹果
@@ -44,17 +45,11 @@ public class C5UseLambda {
 		List<Apple> result = filterApples(inventory, (Apple apple) -> "green".equals(apple.getColor()));
 
 		// 8. 将List类型抽象化，搞定所有水果的筛选，甚至更多
-		List<Integer> numbers = new C2HarderFilterOldEx().choseInteger(Data.getSomeData(), o -> {
-			if (o instanceof Integer) return true;
-			return false;
-		});
+		List<Integer> numbers = new C2HarderFilterOldEx().choseInteger(Data.getSomeData(), o -> o instanceof Integer);
 
+		// 类型检查、函数描述符、@FunctionalInterface
 		List<Integer> evenNumbers = filter(numbers, i -> i%2 == 0);
 		evenNumbers.stream().forEach(System.out::println);
-
-
-
-
 
 	}
 
