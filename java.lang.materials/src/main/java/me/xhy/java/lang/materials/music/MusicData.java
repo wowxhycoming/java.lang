@@ -16,13 +16,12 @@ public class MusicData {
     public static final Artist ringoStarr = new Artist("Ringo Starr", "UK");
 
     public static final List<Artist> membersOfTheBeatles = Arrays.asList(johnLennon, paulMcCartney, georgeHarrison, ringoStarr);
-
 //    public static final Artist theBeatles = new Artist("The Beatles", membersOfTheBeatles, "UK");
     public static final Artist theBeatles = new Artist("The Beatles", membersOfTheBeatles, "London");
 
     public static final List<Artist> allArtists = Arrays.asList(johnColtrane,johnLennon,paulMcCartney,georgeHarrison,ringoStarr,theBeatles);
 
-    public static final Album aLoveSupreme = new Album("A Love Supreme", asList(new Track("Acknowledgement", 467), new Track("Resolution", 442)), asList(johnColtrane));
+    public static final Album aLoveSupreme = new Album("A Love Supreme", asList(new Track("Acknowledgement", 467), new Track("Resolution", 442)), asList(johnColtrane, theBeatles, theBeatles));
 
     public static final Album sampleShortAlbum = new Album("sample Short Album", asList(new Track("short track", 30)), asList(johnColtrane));
 
@@ -37,5 +36,18 @@ public class MusicData {
     public static List<Artist> getThreeArtists() {
         return Arrays.asList(johnColtrane, johnLennon, theBeatles);
     }
+
+    public static Track bakai = new Track("Bakai", 524);
+    public static Track viloets = new Track("Viloets for Your Furs", 378);
+    public static Track tiemWas = new Track("Tiem Was", 451);
+
+    public static List<Track> getSomeTracks() {
+        return asList(bakai, viloets, tiemWas);
+    }
+
+    public static List<Album> getSomeAlbums() {
+        return asList(aLoveSupreme, sampleShortAlbum, manyTrackAlbum);
+    }
+
 
 }
