@@ -10,6 +10,8 @@ public class Dish {
     private final int calories;
     private final Type type;
 
+    public enum Type { MEAT, FISH, OTHER, OHMYGOD }
+
     public Dish(String name, boolean vegetarian, int calories, Type type) {
         this.name = name;
         this.vegetarian = vegetarian;
@@ -32,8 +34,6 @@ public class Dish {
     public Type getType() {
         return type;
     }
-
-    public enum Type { MEAT, FISH, OTHER }
 
     @Override
     public String toString() {

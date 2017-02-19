@@ -29,7 +29,7 @@ public class C9BuildingStreams {
         int[] numbers = {2, 3, 5, 7, 11, 13};
         System.out.println(Arrays.stream(numbers).sum());
 
-        // Stream.iterate
+        // Stream.iterate 无限流
         Stream.iterate(0, n -> n + 2)
                 .limit(10)
                 .forEach(System.out::println);
