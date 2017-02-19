@@ -2,6 +2,7 @@ package me.xhy.java.lang.java8.nc2Stream;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.function.IntSupplier;
@@ -74,7 +75,7 @@ public class C9BuildingStreams {
         };
         IntStream.generate(fib).limit(10).forEach(System.out::println);
 
-        long uniqueWords = Files.lines(Paths.get("/resources/nc2Stream/data.txt"), Charset.defaultCharset())
+        long uniqueWords = Files.lines(Paths.get("./java.lang.java8/src/main/resources/nc2Stream/data.txt"), Charset.defaultCharset())
                 .flatMap(line -> Arrays.stream(line.split(" ")))
                 .distinct()
                 .count();
