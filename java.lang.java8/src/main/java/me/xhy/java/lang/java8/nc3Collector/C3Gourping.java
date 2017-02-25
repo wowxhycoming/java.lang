@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.*;
 
 /**
  * Created by xuhuaiyu on 2017/2/19.
- *
+ * <p>
  * 分组
  */
 public class C3Gourping {
@@ -24,8 +24,8 @@ public class C3Gourping {
 
         Map<CaloricLevel, List<Dish>> dishesByCaloric = dishes.stream().collect(groupingBy(
                 dish -> {
-                    if(dish.getCalories() <= 400) return CaloricLevel.DIET;
-                    else if(dish.getCalories() < 700) return CaloricLevel.NORMAL;
+                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                    else if (dish.getCalories() < 700) return CaloricLevel.NORMAL;
                     else return CaloricLevel.FAT;
                 }
         ));
@@ -34,8 +34,8 @@ public class C3Gourping {
         Map<Dish.Type, Map<CaloricLevel, List<Dish>>> dishesByTypeCaloric =
                 dishes.stream().collect(groupingBy(Dish::getType, groupingBy(
                         dish -> {
-                            if(dish.getCalories() <= 401) return CaloricLevel.DIET;
-                            else if(dish.getCalories() < 701) return CaloricLevel.NORMAL;
+                            if (dish.getCalories() <= 401) return CaloricLevel.DIET;
+                            else if (dish.getCalories() < 701) return CaloricLevel.NORMAL;
                             else return CaloricLevel.FAT;
                         }
                 )));

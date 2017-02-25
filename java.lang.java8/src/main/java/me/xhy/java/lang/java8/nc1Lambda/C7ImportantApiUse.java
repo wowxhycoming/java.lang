@@ -16,17 +16,17 @@ import static java.util.Arrays.asList;
 public class C7ImportantApiUse {
 
     // Predicate
+
     /**
-     * @FunctionalInterface
-     * public interface Predicate<T> {
-     *     boolean test(T t);
+     * @FunctionalInterface public interface Predicate<T> {
+     * boolean test(T t);
      * }
      */
 
     public static <T> List<T> filter(List<T> list, Predicate<T> p) {
         List<T> results = new ArrayList<T>();
-        for(T t : list) {
-            if(p.test(t)) {
+        for (T t : list) {
+            if (p.test(t)) {
                 results.add(t);
             }
         }
@@ -36,40 +36,40 @@ public class C7ImportantApiUse {
     static Predicate<String> nonEmptyStringPredicate = (String s) -> !s.isEmpty();
 
     public static List<String> testPredicate() {
-        List<String> nonEmpty = filter(asList("1","","2"), nonEmptyStringPredicate);
+        List<String> nonEmpty = filter(asList("1", "", "2"), nonEmptyStringPredicate);
         return nonEmpty;
     }
 
 
     // Consumer
+
     /**
-     * @FunctionalInterface
-     * public interface Consumer<T> {
-     *     void accept(T t);
+     * @FunctionalInterface public interface Consumer<T> {
+     * void accept(T t);
      * }
      */
 
     public static <T> void forEachList(List<T> list, Consumer<T> c) {
-        for(T t : list) {
+        for (T t : list) {
             c.accept(t);
         }
     }
 
     public static void testConsumer() {
-        forEachList(asList(1,2,3,4,5), i -> System.out.println(i));
+        forEachList(asList(1, 2, 3, 4, 5), i -> System.out.println(i));
     }
 
     // Function
+
     /**
-     * @FunctionalInterface
-     * public interface Function<T,R> {
-     *     R apply(T t);
+     * @FunctionalInterface public interface Function<T,R> {
+     * R apply(T t);
      * }
      */
 
-    public static <T,R> List<R> map(List<T> list, Function<T,R> f) {
+    public static <T, R> List<R> map(List<T> list, Function<T, R> f) {
         List<R> results = new ArrayList<>();
-        for(T t : list) {
+        for (T t : list) {
             R r = f.apply(t);
             results.add(r);
         }
@@ -77,7 +77,7 @@ public class C7ImportantApiUse {
     }
 
     public static List<Integer> testFunction() {
-        List<Integer> list = map(asList("1","22","333"), s -> s.length());
+        List<Integer> list = map(asList("1", "22", "333"), s -> s.length());
         return list;
     }
 

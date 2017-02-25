@@ -10,28 +10,28 @@ import java.util.List;
  */
 public class C2HarderFilterOldEx {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Data data = new Data();
-		C2HarderFilterOldEx c = new C2HarderFilterOldEx();
+        Data data = new Data();
+        C2HarderFilterOldEx c = new C2HarderFilterOldEx();
 
-		List<Object> list = Data.getSomeData();
-		List<Integer> integers = c.choseInteger(list, new C2IntegerFilter());
+        List<Object> list = Data.getSomeData();
+        List<Integer> integers = c.choseInteger(list, new C2IntegerFilter());
 
-		// 猜测一下结果
-		for(Integer i : integers) {
-			System.out.println(i);
-		}
+        // 猜测一下结果
+        for (Integer i : integers) {
+            System.out.println(i);
+        }
 
-	}
+    }
 
-	public List<Integer> choseInteger(List<Object> list, C2ObjectFilter filter) {
-		List<Integer> result = new ArrayList<>();
+    public List<Integer> choseInteger(List<Object> list, C2ObjectFilter filter) {
+        List<Integer> result = new ArrayList<>();
 
-		for(Object o : list) {
-			if(filter.filter(o)) result.add((Integer) o);
-		}
+        for (Object o : list) {
+            if (filter.filter(o)) result.add((Integer) o);
+        }
 
-		return result;
-	}
+        return result;
+    }
 }

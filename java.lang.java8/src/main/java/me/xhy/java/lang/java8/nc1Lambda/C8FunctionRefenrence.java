@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 /**
  * Created by xuhuaiyu on 2017/2/11.
- *
+ * <p>
  * 方法引用
  */
 public class C8FunctionRefenrence {
@@ -37,7 +37,7 @@ public class C8FunctionRefenrence {
         // 1. 首先创建一个map ， 有水果的名字和创建水果的方式 ： Map<String, Function<Integer, Fruit>>
         // 2. 一个执行行为的方法
         // 3. 应用方法
-        Apple apple = (Apple)giveMeFruit("apple", 200);
+        Apple apple = (Apple) giveMeFruit("apple", 200);
 
     }
 

@@ -3,7 +3,7 @@ package me.xhy.java.lang.materials.fruit;
 /**
  * Created by xuhuaiyu on 2017/2/11.
  */
-public class Orange extends Fruit{
+public class Orange extends Fruit {
     private int weight = 0;
 
     public int getWeight() {

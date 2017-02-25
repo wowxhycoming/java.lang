@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by xuhuaiyu on 2017/2/7.
  */
-public class Apple extends Fruit{
+public class Apple extends Fruit {
 
     private int weight = 0;
     private String color = "";

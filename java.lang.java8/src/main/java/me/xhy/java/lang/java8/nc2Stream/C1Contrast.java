@@ -20,7 +20,7 @@ public class C1Contrast {
         int count = 0;
         for (Artist artist : allArtists) {
             if (artist.isFrom("London")) {
-                count ++;
+                count++;
             }
         }
         System.out.println(count);
@@ -28,9 +28,9 @@ public class C1Contrast {
         // iterator
         count = 0;
         Iterator<Artist> iterator = allArtists.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Artist artist = iterator.next();
-            if(artist.isFrom("London")) {
+            if (artist.isFrom("London")) {
                 count++;
             }
         }
@@ -59,26 +59,26 @@ public class C1Contrast {
     }
 
 
-    public static List<String> getLowCaloricDishesNamesInJava7(List<Dish> dishes){
+    public static List<String> getLowCaloricDishesNamesInJava7(List<Dish> dishes) {
         List<Dish> lowCaloricDishes = new ArrayList<>();
-        for(Dish d: dishes){
-            if(d.getCalories() < 400){
+        for (Dish d : dishes) {
+            if (d.getCalories() < 400) {
                 lowCaloricDishes.add(d);
             }
         }
         List<String> lowCaloricDishesName = new ArrayList<>();
         Collections.sort(lowCaloricDishes, new Comparator<Dish>() {
-            public int compare(Dish d1, Dish d2){
+            public int compare(Dish d1, Dish d2) {
                 return Integer.compare(d1.getCalories(), d2.getCalories());
             }
         });
-        for(Dish d: lowCaloricDishes){
+        for (Dish d : lowCaloricDishes) {
             lowCaloricDishesName.add(d.getName());
         }
         return lowCaloricDishesName;
     }
 
-    public static List<String> getLowCaloricDishesNamesInJava8(List<Dish> dishes){
+    public static List<String> getLowCaloricDishesNamesInJava8(List<Dish> dishes) {
         return dishes.stream()
                 .filter(d -> d.getCalories() < 400)
                 .sorted(comparing(Dish::getCalories))

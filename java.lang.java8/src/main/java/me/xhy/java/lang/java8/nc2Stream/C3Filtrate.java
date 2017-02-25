@@ -33,9 +33,9 @@ public class C3Filtrate {
 
         // 3. 截短
         List<Dish> dishesLimit3 = menu.stream()
-                        .filter(d -> d.getCalories() > 300)
-                        .limit(3) // 限定数量
-                        .collect(toList());
+                .filter(d -> d.getCalories() > 300)
+                .limit(3) // 限定数量
+                .collect(toList());
 
         dishesLimit3.forEach(System.out::println);
 
