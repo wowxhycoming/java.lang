@@ -2,7 +2,6 @@ package me.xhy.java.lang.java8.nc3Collector;
 
 import me.xhy.java.lang.materials.dish.Dish;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,17 +51,19 @@ public class C4Partition {
         System.out.println(mostCaloricDishes);
 
         // 找出所有素数
-
-
-isPrime(100);
-
+        System.out.println(isPrime(7));
+        Map<Boolean, List<Integer>> primePartition =
+            IntStream.range(1, 1000).boxed().collect(partitioningBy(i -> isPrime(i)));
+        System.out.println(primePartition);
 
     }
-    public static void isPrime(int end) {
-        IntStream.range(3, end).noneMatch(
+
+    // 计算传入参数是否为素数
+    public static boolean isPrime(int end) {
+        return IntStream.range(2, end).noneMatch(
             i -> {
-                System.out.println(i);
-                return end % i == 0;
+//                System.out.println(i);
+                return end % i == 0; // 执行end%2|end%3|...|end%end-1 ，当返回true，中断，外层表达式既为假
             }
         );
     }
