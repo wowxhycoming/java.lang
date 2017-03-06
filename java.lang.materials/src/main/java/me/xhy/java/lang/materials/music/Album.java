@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
  * 唱片
  */
 public final class Album implements Music {
-    
+
     private String name;
     private List<Track> tracks;
     private List<Artist> musicians;

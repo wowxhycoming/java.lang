@@ -10,7 +10,7 @@ import static java.util.Comparator.comparing;
 
 /**
  * Created by xuhuaiyu on 2017/2/12.
- *
+ * <p>
  * 复合 Lambda 表达式
  */
 public class C9ComplexLambda {

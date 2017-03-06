@@ -8,7 +8,7 @@ import java.util.function.*;
 
 /**
  * Created by xuhuaiyu on 2017/2/7.
- *
+ * <p>
  * 常用的API
  */
 public class C3ImportantApi {

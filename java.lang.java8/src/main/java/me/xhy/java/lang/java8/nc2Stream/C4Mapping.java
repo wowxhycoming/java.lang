@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Created by xuhuaiyu on 2017/2/12.
- *
+ * <p>
  * 映射
  */
 public class C4Mapping {
@@ -43,8 +43,8 @@ public class C4Mapping {
                 .forEach(System.out::print);
 
         // 返回 [1,2,3] 和 [3,4] 的所有数对
-        List<Integer> numbers1 = Arrays.asList(1,2,3,4,5);
-        List<Integer> numbers2 = Arrays.asList(6,7,8);
+        List<Integer> numbers1 = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> numbers2 = Arrays.asList(6, 7, 8);
         List<int[]> pairs =
                 numbers1.stream()
                         .flatMap((Integer i) -> numbers2.stream()
@@ -54,7 +54,6 @@ public class C4Mapping {
                         .collect(toList());
 
         pairs.forEach(pair -> System.out.println("(" + pair[0] + ", " + pair[1] + ")"));
-
 
 
     }

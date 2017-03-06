@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.*;
 
 /**
  * Created by xuhuaiyu on 2017/2/19.
- *
+ * <p>
  * 归约 和 汇总
  */
 public class C2ReduceAndSummarizing {

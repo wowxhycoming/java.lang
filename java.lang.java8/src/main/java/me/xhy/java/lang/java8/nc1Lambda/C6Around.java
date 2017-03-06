@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * Created by xuhuaiyu on 2017/2/11.
- *
+ * <p>
  * 利用 lambda 和 行为参数化 让代码变的更灵活
  */
 public class C6Around {
@@ -16,7 +16,7 @@ public class C6Around {
     // 读取固定文件中的一行数据
     public static String processFile() throws IOException {
         // 带资源的 try 语句，不再需要关闭资源
-        try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))) { // 只有这一行是有用工作的代码
+        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) { // 只有这一行是有用工作的代码
             return br.readLine();
         }
     }
@@ -33,7 +33,7 @@ public class C6Around {
 
     // 3. 执行一个行为
     public static String processFile(C6BufferedReaderProcessor p) throws IOException {
-        try(BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
             return p.process(br);
         }
     }

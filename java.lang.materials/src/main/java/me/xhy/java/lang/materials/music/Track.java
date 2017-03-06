@@ -9,7 +9,7 @@ package me.xhy.java.lang.materials.music;
  * 曲目
  */
 public final class Track {
-    
+
     private final String name;
     private final int length;
 

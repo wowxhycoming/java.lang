@@ -11,7 +11,7 @@ import static me.xhy.java.lang.materials.trade.TradeData.transactions;
 
 /**
  * Created by xuhuaiyu on 2017/2/12.
- *
+ * <p>
  * 实践
  */
 public class C7Practice {

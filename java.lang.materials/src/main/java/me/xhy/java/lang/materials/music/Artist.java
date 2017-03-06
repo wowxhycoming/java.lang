@@ -17,11 +17,11 @@ import static java.util.stream.Collectors.toList;
  * 艺术家（个人或乐队），members 为乐队成员
  */
 public final class Artist {
-    
+
     private String name;
     private List<Artist> members;
     private String nationality;
-    
+
     public Artist(String name, String nationality) {
         this(name, Collections.emptyList(), nationality);
     }

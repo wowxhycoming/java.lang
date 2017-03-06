@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 /**
  * Created by xuhuaiyu on 2017/2/19.
- *
+ * <p>
  * 对比
  */
 public class C1Contrast {
@@ -26,10 +26,10 @@ public class C1Contrast {
         Map<Transaction.Currency, List<Transaction>> result = new HashMap<>();
 
         // old
-        for(Transaction transaction : transactionList) {
+        for (Transaction transaction : transactionList) {
             Transaction.Currency currency = transaction.getCurrency();
             List<Transaction> transactionsForCurrency = result.get(currency);
-            if(transactionsForCurrency == null) {
+            if (transactionsForCurrency == null) {
                 transactionsForCurrency = new ArrayList<>();
             }
             transactionsForCurrency.add(transaction);
@@ -38,7 +38,8 @@ public class C1Contrast {
         System.out.println(result);
 
         // stream
-        Map<Transaction.Currency, List<Transaction>> streamSolveResult = transactionList.stream().collect(groupingBy(Transaction::getCurrency));
+        Map<Transaction.Currency, List<Transaction>> streamSolveResult =
+                transactionList.stream().collect(groupingBy(Transaction::getCurrency));
         System.out.println(streamSolveResult);
 
     }
