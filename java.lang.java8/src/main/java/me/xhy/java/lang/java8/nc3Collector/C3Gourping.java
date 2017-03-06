@@ -64,75 +64,75 @@ public class C3Gourping {
         // 因为分组操作的 Map 结果集中的值都被包装成了 Optional ， 这并没有什么卵用，所以要去掉这一层包装
         Map<Dish.Type, Dish> realValueMostCaloricByType =
                 dishes.stream()
-                      .collect(
-                        groupingBy(
-                          Dish::getType,
-                          collectingAndThen(
-                            maxBy(comparingInt(Dish::getCalories)),
-                            Optional::get)
-                ));
+                        .collect(
+                                groupingBy(
+                                        Dish::getType,
+                                        collectingAndThen(
+                                                maxBy(comparingInt(Dish::getCalories)),
+                                                Optional::get)
+                                ));
         System.out.println("去掉 Optional 包装 ： \r\n" + realValueMostCaloricByType);
 
         // 与 groupingBy 一起联合使用的例子
         // 求出每种类型菜肴的热量总和
         Map<Dish.Type, Integer> sumCaloriesByType =
-            dishes.stream()
-                    .collect(
-                        groupingBy(
-                            Dish::getType,
-                            summingInt(Dish::getCalories)
-                        )
-                    );
+                dishes.stream()
+                        .collect(
+                                groupingBy(
+                                        Dish::getType,
+                                        summingInt(Dish::getCalories)
+                                )
+                        );
         System.out.println("每种菜品的热量总和 :\r\n" + sumCaloriesByType);
 
         // 每种类型的菜种都包含哪些热量等级
         Map<Dish.Type, Set<CaloricLevel>> groupCaloricLevelType =
-            dishes.stream()
-                .collect(
-                    groupingBy(
-                        Dish::getType,
-                        mapping(
-                            dish -> {
-                                if(dish.getCalories() <= 401) return CaloricLevel.DIET;
-                                else if(dish.getCalories() <= 701) return CaloricLevel.NORMAL;
-                                else return CaloricLevel.FAT;
-                            }, toSet()
-                        )
-                    )
-                );
+                dishes.stream()
+                        .collect(
+                                groupingBy(
+                                        Dish::getType,
+                                        mapping(
+                                                dish -> {
+                                                    if (dish.getCalories() <= 401) return CaloricLevel.DIET;
+                                                    else if (dish.getCalories() <= 701) return CaloricLevel.NORMAL;
+                                                    else return CaloricLevel.FAT;
+                                                }, toSet()
+                                        )
+                                )
+                        );
         System.out.println("每种菜中都有哪些热量等级 :\r\n" + groupCaloricLevelType);
 
         groupCaloricLevelType =
-            dishes.stream()
-                .collect(
-                    groupingBy(
-                        Dish::getType,
-                        mapping(
-                            dish -> {
-                                if(dish.getCalories() <= 402) return CaloricLevel.DIET;
-                                else if(dish.getCalories() <= 702) return CaloricLevel.NORMAL;
-                                else return CaloricLevel.FAT;
-                            }, toCollection(HashSet::new) // 使用收集器接口
-                        )
-                    )
-                );
+                dishes.stream()
+                        .collect(
+                                groupingBy(
+                                        Dish::getType,
+                                        mapping(
+                                                dish -> {
+                                                    if (dish.getCalories() <= 402) return CaloricLevel.DIET;
+                                                    else if (dish.getCalories() <= 702) return CaloricLevel.NORMAL;
+                                                    else return CaloricLevel.FAT;
+                                                }, toCollection(HashSet::new) // 使用收集器接口
+                                        )
+                                )
+                        );
         System.out.println("== \r\n" + groupCaloricLevelType);
 
         // 将上面结果中， 每种热量的菜列出来， 如果减肥的我想要吃鱼应该很容易在下面结果中选择菜肴（按菜肴种类 和 热量等级显示菜单）
-        Map<Dish.Type, Map<CaloricLevel, List<Dish>>>  groupDishByTypeAndCL =
-            dishes.stream()
-                .collect(
-                    groupingBy(
-                        Dish::getType,
-                        groupingBy(
-                            dish -> {
-                                if(dish.getCalories() <= 400) return CaloricLevel.DIET;
-                                else if(dish.getCalories() <= 700) return CaloricLevel.NORMAL;
-                                else return CaloricLevel.FAT;
-                            }, toList()
-                        )
-                    )
-                );
+        Map<Dish.Type, Map<CaloricLevel, List<Dish>>> groupDishByTypeAndCL =
+                dishes.stream()
+                        .collect(
+                                groupingBy(
+                                        Dish::getType,
+                                        groupingBy(
+                                                dish -> {
+                                                    if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+                                                    else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+                                                    else return CaloricLevel.FAT;
+                                                }, toList()
+                                        )
+                                )
+                        );
         System.out.println("按菜肴种类 和 热量等级显示菜单 :\r\n" + groupDishByTypeAndCL);
 
 

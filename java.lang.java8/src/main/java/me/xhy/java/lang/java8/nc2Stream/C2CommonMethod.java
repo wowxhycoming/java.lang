@@ -32,7 +32,7 @@ public class C2CommonMethod {
             String uppercaseString = s.toUpperCase();
             collected.add(uppercaseString);
         }
-        for(String s : collected) {
+        for (String s : collected) {
             System.out.println(s);
         }
 
@@ -48,21 +48,21 @@ public class C2CommonMethod {
 
         // flatMap 的参数为
         // 非扁平化处理
-        List<List<Integer>> togetherFalse = Stream.of(asList(1,2), asList(3,4)).collect(toList());
+        List<List<Integer>> togetherFalse = Stream.of(asList(1, 2), asList(3, 4)).collect(toList());
         togetherFalse.forEach(e -> System.out.println(e.getClass().getName()));
         // 扁平化处理
-        List<Integer> together = Stream.of(asList(1,2), asList(3,4)).flatMap(member -> member.stream()).collect(toList());
+        List<Integer> together = Stream.of(asList(1, 2), asList(3, 4)).flatMap(member -> member.stream()).collect(toList());
         together.forEach(System.out::println);
 
         // min 和 max
         List<Track> tracks = MusicData.getSomeTracks();
         // 返回 Optional 对象， Optional 是一个可能存在的值, 通过 get() 方法获取值。
         Track shortestTrack = tracks.stream().min(Comparator.comparing(track -> track.getLength())).get();
-	    System.out.println(shortestTrack.getName() + shortestTrack.getLength());
+        System.out.println(shortestTrack.getName() + shortestTrack.getLength());
 
         // reduce ， count、min、max 都是 reduce 。
-        int count = Stream.of(1,2,3).reduce(0, (acc, element) -> acc + element);
-	    System.out.println(count);
+        int count = Stream.of(1, 2, 3).reduce(0, (acc, element) -> acc + element);
+        System.out.println(count);
 
         // 一个整合操作 ： 找出专辑上所有乐队的国籍 。 用toList收集，会产生重复数据，这里使用toSet收集
         Album aLoveSupreme = MusicData.aLoveSupreme;
@@ -73,11 +73,11 @@ public class C2CommonMethod {
 
         // 重构遗留代码 ：找出长度大于60秒的曲目 。 数据准备
         List<Album> albums = MusicData.getSomeAlbums();
-	    Set<String> trackNames = new HashSet<>();
-        for(Album album : albums) {
-            for(Track track : album.getTrackList()) {
+        Set<String> trackNames = new HashSet<>();
+        for (Album album : albums) {
+            for (Track track : album.getTrackList()) {
                 System.out.println(album.getName() + ":" + track.getName() + ":" + track.getLength());
-                if(track.getLength() > 60) {
+                if (track.getLength() > 60) {
                     String name = track.getName();
                     trackNames.add(name);
                 }
@@ -88,13 +88,6 @@ public class C2CommonMethod {
                 .filter(track -> track.getLength() > 60)
                 .map(track -> track.getName())
                 .collect(toSet());
-
-
-
-
-
-
-
 
 
     }
