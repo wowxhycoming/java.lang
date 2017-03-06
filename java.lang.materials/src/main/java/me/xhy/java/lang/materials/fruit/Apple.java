@@ -56,4 +56,8 @@ public class Apple extends Fruit{
         return inventory;
     }
 
+    public static int defaultW() {
+    	return 100;
+    }
+
 }
