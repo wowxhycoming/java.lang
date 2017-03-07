@@ -24,7 +24,6 @@ public class C4Mapping {
                 .map(Dish::getName) // 菜肴的名字
 //                .map(String::length) // 菜肴名称的长度
                 .collect(toList());
-
         System.out.println(dishNames);
 
         // 2. 扁平化流
@@ -40,15 +39,15 @@ public class C4Mapping {
         words.stream()
                 .flatMap((String line) -> Arrays.stream(line.split("")))
                 .distinct()
-                .forEach(System.out::print);
+                .forEach(System.out::println);
 
         // 返回 [1,2,3] 和 [3,4] 的所有数对
         List<Integer> numbers1 = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> numbers2 = Arrays.asList(6, 7, 8);
         List<int[]> pairs =
                 numbers1.stream()
-                        .flatMap((Integer i) -> numbers2.stream()
-                                .map((Integer j) -> new int[]{i, j})
+                        .flatMap((Integer i) ->
+                                numbers2.stream().map((Integer j) -> new int[]{i, j})
                         )
 //                        .filter(pair -> (pair[0] + pair[1]) % 3 == 0)
                         .collect(toList());

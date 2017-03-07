@@ -8,6 +8,8 @@ import static java.util.Arrays.asList;
 
 /**
  * Created by xuhuaiyu-macpro on 2017/3/6.
+ * <p>
+ * 为什么不能对 Arrays.asList() 返回的引用进行 add 和 remove
  */
 public class C7NotedArrayAsListOnlyRead {
 
@@ -15,7 +17,7 @@ public class C7NotedArrayAsListOnlyRead {
 
         ArrayList listRight = new ArrayList<>(Arrays.asList("1", "2", "3"));
         // 更智能的自动类型推断，定义 和 实现 都没有显示的泛型
-        listRight.add("bingo")
+        listRight.add("bingo");
         System.out.println(listRight);
 
         List<String> listWrong = asList("1", "", "2");

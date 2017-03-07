@@ -61,15 +61,14 @@ public class C2CommonMethod {
         System.out.println(shortestTrack.getName() + shortestTrack.getLength());
 
         // reduce ， count、min、max 都是 reduce 。
-        int count = Stream.of(1, 2, 3).reduce(0, (acc, element) -> acc + element);
-        System.out.println(count);
+        int count = Stream.of(1, 2, 3).map(c -> 1).reduce(0, (acc, element) -> acc + element);
 
         // 一个整合操作 ： 找出专辑上所有乐队的国籍 。 用toList收集，会产生重复数据，这里使用toSet收集
         Album aLoveSupreme = MusicData.aLoveSupreme;
         Set<String> nationals = aLoveSupreme.getMusicians().filter(artist -> artist.getMembers().count() > 1)
-                .map(artist -> artist.getNationality())
+                .map(artist -> artist.getNationality()) // func ref
                 .collect(toSet());
-        nationals.stream().forEach(System.out::println);
+        nationals.stream().forEach(System.out::println); // collection.forEach()
 
         // 重构遗留代码 ：找出长度大于60秒的曲目 。 数据准备
         List<Album> albums = MusicData.getSomeAlbums();
@@ -86,9 +85,9 @@ public class C2CommonMethod {
 
         trackNames = albums.stream().flatMap(album -> album.getTrackList().stream())
                 .filter(track -> track.getLength() > 60)
-                .map(track -> track.getName())
+                .map(Track::getName)
                 .collect(toSet());
-
+        System.out.println(trackNames);
 
     }
 
