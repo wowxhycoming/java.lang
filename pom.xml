@@ -10,11 +10,6 @@
     <version>1.0-SNAPSHOT</version>
 
 
-    <modules>
-        <module>java.lang.java8</module>
-        <module>java.lang.materials</module>
-    </modules>
-
     <build>
         <plugins>
             <plugin>
@@ -28,6 +23,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <modules>
+        <module>java.lang.java5</module>
+        <module>java.lang.java8</module>
+        <module>java.lang.materials</module>
+    </modules>
 
 
 </project>
