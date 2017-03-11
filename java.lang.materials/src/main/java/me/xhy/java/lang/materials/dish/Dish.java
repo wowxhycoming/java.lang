@@ -40,6 +40,11 @@ public class Dish {
         return name;
     }
 
+    public boolean isLowCaloric() {
+    	if(this.getCalories() < 400) return true;
+    	else return false;
+    }
+
     public static final List<Dish> menu =
             Arrays.asList(new Dish("pork", false, 800, Dish.Type.MEAT),
                     new Dish("beef", false, 700, Dish.Type.MEAT),

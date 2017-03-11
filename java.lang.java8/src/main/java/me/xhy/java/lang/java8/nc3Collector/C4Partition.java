@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.*;
 
 /**
  * Created by xuhuaiyu on 2017/2/26.
- *
+ * <p>
  * 分区
  * 分区是分组的特殊情况，由一个谓词作为分组函数（就是分成两组，一真一假）
  */
@@ -23,7 +23,7 @@ public class C4Partition {
 
         // 按是否是蔬菜分区
         Map<Boolean, List<Dish>> partitionByVegetarian =
-            dishes.stream().collect(partitioningBy(Dish::isVegetarian));
+                dishes.stream().collect(partitioningBy(Dish::isVegetarian));
         System.out.println(partitionByVegetarian);
 
         // 先按是否为蔬菜分区，然后在按类型分组

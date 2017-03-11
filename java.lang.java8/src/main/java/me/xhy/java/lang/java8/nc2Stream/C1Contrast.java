@@ -56,6 +56,8 @@ public class C1Contrast {
         // Java 8
         getLowCaloricDishesNamesInJava8(Dish.menu).forEach(System.out::println);
 
+        sortMap();
+
     }
 
 
@@ -80,10 +82,27 @@ public class C1Contrast {
 
     public static List<String> getLowCaloricDishesNamesInJava8(List<Dish> dishes) {
         return dishes.stream()
-                .filter(d -> d.getCalories() < 400)
+                .filter(Dish::isLowCaloric)
                 .sorted(comparing(Dish::getCalories))
                 .map(Dish::getName)
                 .collect(toList());
+    }
+
+    public static void sortMap() {
+        Map<String, Integer> m = new HashMap<>();
+        m.put("1", 1);
+        m.put("3", 3);
+        m.put("2", 2);
+        m.put("4", 4);
+        m.entrySet().stream().sorted(
+                comparing(e -> {
+                    System.out.println("1");
+                    return e.getValue();
+                })
+        ).forEach(e -> System.out.print(e.getValue()));
+
+        long l = m.entrySet().stream().count();
+
     }
 
 }
