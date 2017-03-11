@@ -53,7 +53,7 @@ public class C4Partition {
         // 找出所有素数
         System.out.println(isPrime(7));
         Map<Boolean, List<Integer>> primePartition =
-            IntStream.range(1, 1000).boxed().collect(partitioningBy(i -> isPrime(i)));
+            IntStream.range(1, 1000).boxed().collect(partitioningBy(C4Partition::isPrime));
         System.out.println(primePartition);
 
     }
