@@ -11,7 +11,7 @@ public class C1Atomic {
 
     public static void main(String[] args) {
 
-        // 1. i++
+        // 1. i++ 工作原理
 //        ipp();
 
         // 2. 原子性 不能保证
@@ -27,10 +27,8 @@ public class C1Atomic {
 
     private static void ipp() {
         int i = 10;
-        System.out.println(i++);
         i = i++;
         System.out.println(i);
-        System.out.println(i++);
         //region // i++ 的内存步骤
         /**
          * i++ （先用 再加）
@@ -62,7 +60,7 @@ public class C1Atomic {
 
     public static void simulationCAS() {
 
-        final simulationCompareAndSwap cas = new simulationCompareAndSwap();
+        final SimulationCompareAndSwap cas = new SimulationCompareAndSwap();
 
         for (int i = 0; i < 20; i++) {
             new Thread(new Runnable() {
@@ -144,7 +142,7 @@ class AtomicIntPlusPlus implements Runnable{
  *
  * synchronized 是 JVM 里东西， CAS 是硬件里的东西。
  */
-class simulationCompareAndSwap {
+class SimulationCompareAndSwap {
     private int value;
 
     //获取内存值
