@@ -69,7 +69,7 @@ class Clerk {
             }
 
             System.out.println(Thread.currentThread().getName() + " : "
-            + --product);
+                    + --product);
 
             condition.signalAll();
 

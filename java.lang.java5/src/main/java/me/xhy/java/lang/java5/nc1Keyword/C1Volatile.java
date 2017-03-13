@@ -6,8 +6,9 @@ import me.xhy.java.lang.java5.nc2Concurrent.C1Atomic;
  * Created by xuhuaiyu on 2017/3/11.
  * <p>
  * 把 volatile 视为 java 5 版本的关键字，是因为 volatile 在 java 5 之后才发挥作用，在之前版本会引发莫名其妙的问题。
- *
+ * <p>
  * 下面测试代码中涉及到原子性问题的，参照 ：
+ *
  * @see C1Atomic
  */
 public class C1Volatile {
@@ -40,7 +41,7 @@ public class C1Volatile {
          * 但是，枷锁是效率最低的解决办法，如果有多个线程同时访问这段代码，会有线程挂起。
          * 这时，volatile 关键字就可以起作用了。
          */
-         //endregion
+        //endregion
         new Thread(new ThreadDemoPropertyReader()).start();
         // region // volatile
         /**
@@ -101,12 +102,12 @@ class ThreadDemoPropertyReader implements Runnable {
         ThreadDemo td = new ThreadDemo();
         new Thread(td).start();
 
-        while(true){
+        while (true) {
 //            synchronized (td) {
-                if (td.isFlag()) {
-                    System.out.println("ThreadDemoPropertyReader------------------");
-                    break;
-                }
+            if (td.isFlag()) {
+                System.out.println("ThreadDemoPropertyReader------------------");
+                break;
+            }
 //            }
         }
     }
@@ -147,8 +148,8 @@ class ThreadDemoVolatilePropertyReader implements Runnable {
         ThreadDemoVolatile tdv = new ThreadDemoVolatile();
         new Thread(tdv).start();
 
-        while(true){
-            if(tdv.isFlag()){
+        while (true) {
+            if (tdv.isFlag()) {
                 System.out.println("ThreadDemoVolatilePropertyReader------------------");
                 break;
             }

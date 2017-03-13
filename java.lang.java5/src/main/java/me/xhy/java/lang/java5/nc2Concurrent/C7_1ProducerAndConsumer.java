@@ -235,21 +235,21 @@ class WaitAndNotify {
 
 /**
  * 当有多对 生产者-消费者 的时候
- *
+ * <p>
  * 改进后的程序也不能正常运行，是因为存在 虚假唤醒 的情况
- *
+ * <p>
  * 消费者较快， 会有两个线程同时停留到 wait() 方法上
  * 当生产者发起一次 notifyAll() 后，两个消费者同时执行 --product ， 所以出现负数
- *
+ * <p>
  * 在 JDK API 中， wait() 方法中有一句话
  * As in the one argument version, interrupts and spurious wakeups are possible, and this method should always be used in a loop:
  * 中断 和 虚假唤醒 是可能的，因此这个方法应该总是使用在循环中。如同：
- *  synchronized (obj) {
- *      while (<conditionList does not hold>)
- *          obj.wait();
- *          // Perform action appropriate to conditionList
- *  }
- *  就是在 wait() 被唤醒的时候， 再进行一次判断， 决定继续 wait() 还是 向下执行。
+ * synchronized (obj) {
+ * while (<conditionList does not hold>)
+ * obj.wait();
+ * // Perform action appropriate to conditionList
+ * }
+ * 就是在 wait() 被唤醒的时候， 再进行一次判断， 决定继续 wait() 还是 向下执行。
  */
 class NoNotify {
 
@@ -394,7 +394,7 @@ class TheRightWayOfWait {
         // 进货
         public synchronized void get() {
             // 让线程交替执行
-            while(product >= 1) {
+            while (product >= 1) {
                 System.out.println(Thread.currentThread().getName() + " : " + "商品已满！");
 
                 try {
@@ -413,7 +413,7 @@ class TheRightWayOfWait {
         }
 
         public synchronized void sale() {
-            while(product <= 0) {
+            while (product <= 0) {
                 System.out.println(Thread.currentThread().getName() + " : " + "缺货！！");
 
                 try {

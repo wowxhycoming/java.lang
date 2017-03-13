@@ -57,7 +57,7 @@ public class Apple extends Fruit {
     }
 
     public static int defaultW() {
-    	return 100;
+        return 100;
     }
 
 }

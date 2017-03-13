@@ -8,13 +8,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by xuhuaiyu on 2017/3/12.
- *
+ * <p>
  * CopyOnWriteArrayList since 1.5
  * 在写入时赋值，解决遍历集合时对集合进行操作的问题
- *
+ * <p>
  * 每次要执行写入操作时，都会先复制一个新的列表，然后再执行写入操作
  * 由于每次操作都需要复制，添加操作多的时候就不适合使用他，他更适合做迭代多但是写入操作少的应用场景。
- *
  */
 public class C3CopyOnWriteArrayList {
 
@@ -43,11 +42,11 @@ public class C3CopyOnWriteArrayList {
 }
 
 
-class SynchronizedListOperator implements Runnable{
+class SynchronizedListOperator implements Runnable {
 
     private static List<String> list = Collections.synchronizedList(new ArrayList<String>());
 
-    static{
+    static {
         list.add("AA");
         list.add("BB");
         list.add("CC");
@@ -58,7 +57,7 @@ class SynchronizedListOperator implements Runnable{
 
         Iterator<String> it = list.iterator();
 
-        while(it.hasNext()){
+        while (it.hasNext()) {
             System.out.println(it.next());
 
             list.add("AA");
@@ -68,11 +67,11 @@ class SynchronizedListOperator implements Runnable{
 
 }
 
-class CopyOnWriteArrayListOperator implements Runnable{
+class CopyOnWriteArrayListOperator implements Runnable {
 
     private static CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
 
-    static{
+    static {
         list.add("=AA=");
         list.add("=BB=");
         list.add("=CC=");
@@ -83,7 +82,7 @@ class CopyOnWriteArrayListOperator implements Runnable{
 
         Iterator<String> it = list.iterator();
 
-        while(it.hasNext()){
+        while (it.hasNext()) {
             System.out.println(it.next());
 
             list.add("=DD=");

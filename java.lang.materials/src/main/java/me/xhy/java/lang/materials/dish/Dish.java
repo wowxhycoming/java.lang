@@ -41,8 +41,8 @@ public class Dish {
     }
 
     public boolean isLowCaloric() {
-    	if(this.getCalories() < 400) return true;
-    	else return false;
+        if (this.getCalories() < 400) return true;
+        else return false;
     }
 
     public static final List<Dish> menu =

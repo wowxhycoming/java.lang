@@ -61,13 +61,13 @@ public class C7Practice {
                 .flatMap(name -> Arrays.stream(name.split("")))// char[]
                 .distinct()
                 .sorted()
-                .reduce("",(s1, s2) -> s1 + "|" + s2);
+                .reduce("", (s1, s2) -> s1 + "|" + s2);
         System.out.println(sortedNameChar);
         String sortedNameChar2 = transactions.stream()
                 .flatMap(txn -> Arrays.stream(txn.getTrader().getName().split("")))
                 .distinct()
                 .sorted()
-                .reduce("",(s1, s2) -> s1 + "|" + s2);
+                .reduce("", (s1, s2) -> s1 + "|" + s2);
         System.out.println(sortedNameChar2);
 
         // 有没有交易员在米兰工作
@@ -85,7 +85,7 @@ public class C7Practice {
         List<Transaction> txnList2 = new ArrayList(transactions);
         // 这种拷贝方法是错误的， txnList1 == txnList2 的值为 false，只能说明两个集合的引用的地址不同，不能说明里面装的对象的地址不同
         // 对 txnList1 里的元素进行操作 等同于 txnList2 里的元素做操作， 因为元素指针是一样的
-        System.out.println(txnList1.get(0) == txnList2.get(0) );
+        System.out.println(txnList1.get(0) == txnList2.get(0));
 
         // 把所有米兰的交易更新成剑桥
         System.out.println("更改前原值 ： ");
@@ -102,10 +102,11 @@ public class C7Practice {
         System.out.println(txnList2);
         txnList2.stream()
                 .map(txn -> {
-                    if(txn.getTrader().getCity().equals("Cambridge"))
+                    if (txn.getTrader().getCity().equals("Cambridge"))
                         txn.getTrader().setCity("Milan");
-                        return txn;
-                }).forEach(txn -> {});
+                    return txn;
+                }).forEach(txn -> {
+        });
         System.out.println("使用更改方法2 ： ");
         System.out.println(txnList2);
         // 两个方法只是从不同纬度进行修改， forEch 是为了让中间操作执行

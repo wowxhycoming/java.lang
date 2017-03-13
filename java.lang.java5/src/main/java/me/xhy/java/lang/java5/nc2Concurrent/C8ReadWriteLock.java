@@ -27,7 +27,7 @@ public class C8ReadWriteLock {
                 public void run() {
                     demo.get();
                 }
-            },String.valueOf(i)).start();
+            }, String.valueOf(i)).start();
         }
     }
 }

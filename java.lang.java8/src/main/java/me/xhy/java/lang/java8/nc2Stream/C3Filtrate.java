@@ -64,7 +64,7 @@ public class C3Filtrate {
                 .filter(d -> d.getCalories() > 300);
         Stream<Dish> menuStream2 = menu.stream()
                 .filter(d -> d.getCalories() > 300);
-        Stream.concat(menuStream1.limit(3),menuStream2.skip(3+3))
+        Stream.concat(menuStream1.limit(3), menuStream2.skip(3 + 3))
                 .forEach(System.out::println);
 
     }

@@ -6,9 +6,9 @@ import java.util.concurrent.FutureTask;
 
 /**
  * Created by xuhuaiyu on 2017/3/12.
- *
+ * <p>
  * Callable since 1.5
- *
+ * <p>
  * 1. 也是一种创建线程运行的方式（Thread Runnable Callable ExecutorService）
  * 2. 有返回值，需要使用 Future(since 1.5) 的实现类接收
  */
@@ -35,13 +35,12 @@ public class C5Callable {
         }
 
 
-
     }
 }
 
 /**
  * 相比于 Runnable
- *
+ * <p>
  * Callable 的方法有返回值；方法会抛异常
  */
 class CallableDemo implements Callable<Integer> {
