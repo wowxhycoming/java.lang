@@ -29,7 +29,7 @@ public class C5Callable {
             // Future 的 get() 方法是阻塞方法
             Integer sum = result.get();  // FutureTask 可用于 闭锁
             System.out.println(sum);
-            System.out.println("------------------------------------");
+            System.out.println("------------------阻塞------------------");
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -53,6 +53,9 @@ class CallableDemo implements Callable<Integer> {
         for (int i = 0; i <= 100000; i++) {
             sum += i;
         }
+
+        // 证明 FutureTask 的 get() 方法是阻塞方法
+        Thread.sleep(1000);
 
         return sum;
     }
