@@ -1,7 +1,5 @@
 package me.xhy.java.lang.java5.nc2Concurrent;
 
-import java.util.concurrent.ConcurrentMap;
-
 /**
  * Created by xuhuaiyu on 2017/3/11.
  * <p>
@@ -41,7 +39,7 @@ import java.util.concurrent.ConcurrentMap;
  * (3). ConcurrentLinkedQueue 是一个先进先出的队列。它是非阻塞队列。
  * (4). ConcurrentSkipListMap 、 ConcurrentSkipListSet 可以在高效并发中替代 SoredMap 、 SoredSet（例如用Collections.synchronizedMap 包装的 TreeMap 、 TreeSet）
  */
-public class C2ConcurrentHashMap {
+public class C8ConcurrentHashMap {
 
     // Map 怎么用 ConcurrentMap 就怎么用，没什么特别的
     public static void main(String[] args) {

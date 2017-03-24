@@ -15,14 +15,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * 每次要执行写入操作时，都会先复制一个新的列表，然后再执行写入操作
  * 由于每次操作都需要复制，添加操作多的时候就不适合使用他，他更适合做迭代多但是写入操作少的应用场景。
  */
-public class C3CopyOnWriteArrayList {
+public class C8CopyOnWriteArrayList {
 
     public static void main(String[] args) throws InterruptedException {
 
         // 1. 同步的 ArrayList 操作，在对其迭代的过程中又对其进行添加操作，会报错：并发修改异常
         operateListSynchronized();
 
-        Thread.currentThread().sleep(100);
+        Thread.sleep(100);
         // 2. 多线程 遍历时 操作 CopyOnWriteArrayList
         opertateCopyOnWriteArrayLis();
     }

@@ -1,6 +1,6 @@
 package me.xhy.java.lang.java5.nc1Keyword;
 
-import me.xhy.java.lang.java5.nc2Concurrent.C1Atomic;
+import me.xhy.java.lang.java5.nc2Concurrent.C2Atomic;
 
 /**
  * Created by xuhuaiyu on 2017/3/11.
@@ -9,7 +9,7 @@ import me.xhy.java.lang.java5.nc2Concurrent.C1Atomic;
  * <p>
  * 下面测试代码中涉及到原子性问题的，参照 ：
  *
- * @see C1Atomic
+ * @see C2Atomic
  */
 public class C1Volatile {
 
@@ -54,7 +54,7 @@ public class C1Volatile {
          * volatile 修饰的关键字，将不会被 JVM 重排序(一种优化方案)。
          */
         // endregion
-        new Thread(new ThreadDemoVolatilePropertyReader()).start();
+//        new Thread(new ThreadDemoVolatilePropertyReader()).start();
         // region // volatile 和 synchronized 的比较
         /**
          * 1. volatile 不具有互斥性 （synchronized 互斥锁）

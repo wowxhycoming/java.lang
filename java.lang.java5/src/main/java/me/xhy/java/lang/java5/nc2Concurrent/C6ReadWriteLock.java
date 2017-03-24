@@ -1,15 +1,15 @@
 package me.xhy.java.lang.java5.nc2Concurrent;
 
-import javax.swing.plaf.SliderUI;
 import java.util.Random;
-import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Created by xuhuaiyu on 2017/3/12.
+ *
+ * ReadWriteLock 不是 Lock 的子接口
  */
-public class C8ReadWriteLock {
+public class C6ReadWriteLock {
 
     public static void main(String[] args) {
         ReadWriteLockDemo demo = new ReadWriteLockDemo();
@@ -34,14 +34,14 @@ public class C8ReadWriteLock {
 
 class ReadWriteLockDemo {
 
-    ReadWriteLock lock = new ReentrantReadWriteLock();
+    private ReadWriteLock rwLock = new ReentrantReadWriteLock();
 
-    int number = 0;
+    private int number = 0;
 
     // 读
-    public void get() {
+    void get() {
 
-        lock.readLock().lock(); // 只要没有些锁，读可并发，只等待了一次共同的时间
+        rwLock.readLock().lock(); // 只要没有写锁，读可并发，只等待了一次共同的时间
 
         try {
             Thread.sleep(1000);
@@ -49,13 +49,13 @@ class ReadWriteLockDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            lock.readLock().unlock();
+            rwLock.readLock().unlock();
         }
 
     }
 
     // 写
-    public void set(int number) {
+    void set(int number) {
 
         try {
             Thread.sleep(1); // 为了让有些读操作可以先于写发生
@@ -63,7 +63,7 @@ class ReadWriteLockDemo {
             e.printStackTrace();
         }
 
-        lock.writeLock().lock();
+        rwLock.writeLock().lock();
 
         try {
             Thread.sleep(2000); // 持有写锁，读都等待
@@ -72,7 +72,7 @@ class ReadWriteLockDemo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            lock.writeLock().unlock();
+            rwLock.writeLock().unlock();
         }
 
     }
