@@ -40,7 +40,8 @@ class Clerk {
                 System.out.println(Thread.currentThread().getName() + " : " + "产品已满！");
 
                 try {
-                    condition.await(); // 使用 lock 的等待方式
+                    // 使用 lock 的等待方式
+                    condition.await(); // 被唤醒（多个线程）不意味着条件一定满足，只能代表有满足的可能，至少一个线程是可以正常工作的
                 } catch (InterruptedException e) {
                 }
 
@@ -68,8 +69,7 @@ class Clerk {
                 }
             }
 
-            System.out.println(Thread.currentThread().getName() + " : "
-                    + --product);
+            System.out.println(Thread.currentThread().getName() + " : " + --product);
 
             condition.signalAll();
 
