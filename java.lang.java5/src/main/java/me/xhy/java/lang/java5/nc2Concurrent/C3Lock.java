@@ -1,7 +1,11 @@
 package me.xhy.java.lang.java5.nc2Concurrent;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import static me.xhy.java.lang.java5.nc2Concurrent._ThreadFactorySupport.getThreadFactory;
 
 /**
  * Created by xuhuaiyu on 2017/3/12.
@@ -13,15 +17,16 @@ import java.util.concurrent.locks.ReentrantLock;
  * 2. 同步方法synchronized，jdk1.5以前的解决方式，隐式的锁
  * 3. 同步锁，jdk1.5提供的解决方式，现实锁，通过 lock() 上锁，通过 unlock() 解锁。
  */
-public class C6Lock {
+public class C3Lock {
 
     public static void main(String[] args) {
 
         // 1. 多线程访问共享数据，会引发问题
-        ticket();
+        // 为什么程序不能正常退出，如何修改
+//        ticket();
 
         // 2. 使用 Lock 解决多线程访问共享数据的问题
-//        lockTicket();
+        lockTicket();
 
     }
 
@@ -29,18 +34,24 @@ public class C6Lock {
 
         Ticket ticket = new Ticket();
 
-        new Thread(ticket, "1号窗口").start();
-        new Thread(ticket, "2号窗口").start();
-        new Thread(ticket, "3号窗口").start();
+        ExecutorService pool =
+                Executors.newFixedThreadPool(5, getThreadFactory("窗口"));
+        for(int i=0; i<5; i++) {
+            pool.submit(ticket);
+        }
+
+        pool.shutdown();
 
     }
 
     public static void lockTicket() {
         LockedTicket ticket = new LockedTicket();
 
-        new Thread(ticket, "1号窗口").start();
-        new Thread(ticket, "2号窗口").start();
-        new Thread(ticket, "3号窗口").start();
+        ExecutorService pool =
+                Executors.newFixedThreadPool(5, getThreadFactory("窗口"));
+        for(int i=0; i<5; i++) {
+            pool.submit(ticket);
+        }
 
     }
 }
@@ -48,8 +59,6 @@ public class C6Lock {
 class Ticket implements Runnable {
 
     private int tick = 100;
-
-    private Lock lock = new ReentrantLock();
 
     @Override
     public void run() {

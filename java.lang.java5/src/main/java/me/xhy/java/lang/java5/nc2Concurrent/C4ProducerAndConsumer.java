@@ -3,7 +3,7 @@ package me.xhy.java.lang.java5.nc2Concurrent;
 /*
  * 生产者和消费者案例
  */
-public class C7_1ProducerAndConsumer {
+public class C4ProducerAndConsumer {
 
     public static void main(String[] args) {
 
@@ -15,7 +15,7 @@ public class C7_1ProducerAndConsumer {
 
 //        noNotifyMorePairs();
 
-        theRightWayOfWait();
+//        theRightWayOfWait();
     }
 
     // 只在共享类中的 访问共享数据的方法上进行同步
@@ -72,8 +72,8 @@ class OnlySyncMethod {
     }
 
     // 店员
+    // product 为商品数量，设定为最大是10，不可进货；最少是0，不可卖货。
     class Clerk {
-        // 商品，设定为 ： 最大10，不可进货；最少0不可卖货。
         private int product = 0;
 
         // 进货
@@ -147,7 +147,6 @@ class WaitAndNotify {
 
     // 店员
     class Clerk {
-        // 商品，设定为 ： 最大10，不可进货；最少0不可卖货。
         private int product = 0;
 
         // 进货
@@ -284,7 +283,6 @@ class NoNotify {
 
     // 店员
     class Clerk {
-        // 商品，设定为 ： 最大1，不可进货；最少0不可卖货。
         private int product = 0;
 
         // 进货
@@ -388,7 +386,6 @@ class TheRightWayOfWait {
 
     // 店员
     class Clerk {
-        // 商品，设定为 ： 最大1，不可进货；最少0不可卖货。
         private int product = 0;
 
         // 进货

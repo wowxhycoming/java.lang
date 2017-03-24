@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /*
  * 生产者消费者案例：
  */
-public class C7_2ProducerAndConsumerUseLock {
+public class C5ProducerAndConsumerUseLock {
 
     public static void main(String[] args) {
         Clerk clerk = new Clerk();
@@ -18,8 +18,8 @@ public class C7_2ProducerAndConsumerUseLock {
         new Thread(pro, "生产者 A").start();
         new Thread(con, "消费者 B").start();
 
-//       new Thread(pro, "生产者 C").start();
-//       new Thread(con, "消费者 D").start();
+//        new Thread(pro, "生产者 C").start();
+//        new Thread(con, "消费者 D").start();
     }
 
 }
