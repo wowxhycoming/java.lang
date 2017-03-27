@@ -12,7 +12,7 @@ import java.util.concurrent.FutureTask;
  * 1. 也是一种创建线程运行的方式（Thread Runnable Callable ExecutorService）
  * 2. 有返回值，需要使用 Future(since 1.5) 的实现类接收
  */
-public class C9Callable {
+public class CxCallable {
 
     public static void main(String[] args) {
 

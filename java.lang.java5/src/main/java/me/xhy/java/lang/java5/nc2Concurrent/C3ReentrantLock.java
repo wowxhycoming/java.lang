@@ -17,7 +17,7 @@ import static me.xhy.java.lang.java5.nc2Concurrent._ThreadFactorySupport.getThre
  * 2. 同步方法synchronized，jdk1.5以前的解决方式，隐式的锁
  * 3. 同步锁，jdk1.5提供的解决方式，现实锁，通过 lock() 上锁，通过 unlock() 解锁。
  */
-public class C3Lock {
+public class C3ReentrantLock {
 
     public static void main(String[] args) {
 

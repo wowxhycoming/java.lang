@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
  * CountDownLatch since 1.5
  * 闭锁，在完成某些运算时，只有其他所有线程的运算全部完成，当前运算才继续执行
  */
-public class C9CountDownLatch {
+public class CxCountDownLatch {
 
     public static void main(String[] args) {
         final CountDownLatch latch = new CountDownLatch(50);

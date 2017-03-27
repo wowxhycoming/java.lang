@@ -13,10 +13,10 @@ package me.xhy.java.lang.java5.nc2Concurrent;
  * 8. 两个静态同步方法，两个 Number 对象?   //one  two
  *
  * 线程八锁的关键：
- * ①非静态方法的锁默认为  this,  静态方法的锁为 对应的 Class 实例
+ * ①非静态方法的锁默认为 this,  静态方法的锁为 对应的 Class 实例
  * ②某一个时刻内，只能有一个线程持有锁，无论几个方法。
  */
-public class TestThread8Monitor {
+public class C7Thread8LockSize {
 
     public static void main(String[] args) {
         Number number = new Number();

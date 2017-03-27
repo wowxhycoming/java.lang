@@ -10,12 +10,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Created by xuhuaiyu on 2017/3/12.
  * <p>
  * CopyOnWriteArrayList since 1.5
+ * CopyOnWriteArraySet since 1.5
  * 在写入时赋值，解决遍历集合时对集合进行操作的问题
  * <p>
- * 每次要执行写入操作时，都会先复制一个新的列表，然后再执行写入操作
+ * 每次要执行写入操作时，都会先复制一个新的列表，将新元素加入到新的列表中，然后再讲新的列表赋值给原来 Object[] 的引用
  * 由于每次操作都需要复制，添加操作多的时候就不适合使用他，他更适合做迭代多但是写入操作少的应用场景。
+ *
+ * CopyOnWriteArraySet 是对 CopyOnWriteArrayList 的一个封装类
+ *   private final CopyOnWriteArrayList<E> al;
+ * 区别在于因为 Set 不允许重复元素，因此 CopyOnWriteArraySet 的 add 方法调用的是 CopyOnWriteArrayList 的 addIfAbsent 方法
  */
-public class C8CopyOnWriteArrayList {
+public class CxCopyOnWriteArrayListAndSet {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -24,7 +29,7 @@ public class C8CopyOnWriteArrayList {
 
         Thread.sleep(100);
         // 2. 多线程 遍历时 操作 CopyOnWriteArrayList
-        opertateCopyOnWriteArrayLis();
+//        opertateCopyOnWriteArrayLis();
     }
 
     private static void operateListSynchronized() {
@@ -57,10 +62,10 @@ class SynchronizedListOperator implements Runnable {
 
         Iterator<String> it = list.iterator();
 
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             System.out.println(it.next());
 
-            list.add("AA");
+            list.add("DD");
         }
 
     }

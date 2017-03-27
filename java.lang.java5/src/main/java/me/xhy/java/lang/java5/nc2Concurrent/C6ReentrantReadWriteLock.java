@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * ReadWriteLock 不是 Lock 的子接口
  */
-public class C6ReadWriteLock {
+public class C6ReentrantReadWriteLock {
 
     public static void main(String[] args) {
         ReadWriteLockDemo demo = new ReadWriteLockDemo();
