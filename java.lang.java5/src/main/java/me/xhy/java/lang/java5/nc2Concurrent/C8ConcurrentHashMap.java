@@ -1,5 +1,8 @@
 package me.xhy.java.lang.java5.nc2Concurrent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by xuhuaiyu on 2017/3/11.
  * <p>
@@ -24,7 +27,7 @@ package me.xhy.java.lang.java5.nc2Concurrent;
  * 采用“锁分段”机制
  * (1). concurrentLevel 分段级别，默认为16，表示将 ConcurrentHashMap 分为16个 Segment。
  * (2). 每个 Segment 有默认16个 Hash表。
- * (3). 每个 Hash表中存放着链表。
+ * (3). 每个 Hash 表中存放着链表。
  * <p>
  * 每个 Segment 拥有独立的锁，也就是说当有多个线程访问不同的 Segment 的时候，是并发效果，并且线程安全。
  * <p>
@@ -44,8 +47,26 @@ public class C8ConcurrentHashMap {
     // Map 怎么用 ConcurrentMap 就怎么用，没什么特别的
     public static void main(String[] args) {
         // 增加了复合操作
-        // putIfAbsent 若不存在 就添加
-        // remove(Object key, Object value) 给的定 key 对应给定的 value，就删除
-        // replace(K key, V oldValue, V newValue) 给的定 key 对应给定的 oldValue，就替换成 newValue
+
+        /* 1. putIfAbsent
+         * 方法签名 V putIfAbsent(K key, V value);
+         * 说明 : 若不存在，就添加
+         */
+
+        /* 2. remove
+         * 方法签名 boolean remove(Object key, Object value);
+         * 说明 : 给的定 key 对应给定的 value，就删除
+         *
+         * 不同于 Map 中的 V remove(Object key);
+         */
+
+        /* 3. replace 有2个重载方法
+         * 方法签名 boolean replace(K key, V oldValue, V newValue);
+         * 说明 : 给的定 key 对应给定的 oldValue，就替换成 newValue
+         * 方法签名 V replace(K key, V value);
+         */
+
+        // 通过 ConcurrentMap 多出来的方法可以看到多线程中一个很重要的概念： compare。compare 的作用就是为了保证 value 的一致性。
+
     }
 }
