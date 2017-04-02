@@ -20,16 +20,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *   private final CopyOnWriteArrayList<E> al;
  * 区别在于因为 Set 不允许重复元素，因此 CopyOnWriteArraySet 的 add 方法调用的是 CopyOnWriteArrayList 的 addIfAbsent 方法
  */
-public class CxCopyOnWriteArrayListAndSet {
+public class C21CopyOnWriteArrayListAndSet {
 
     public static void main(String[] args) throws InterruptedException {
 
         // 1. 同步的 ArrayList 操作，在对其迭代的过程中又对其进行添加操作，会报错：并发修改异常
-        operateListSynchronized();
+//        operateListSynchronized();
 
         Thread.sleep(100);
         // 2. 多线程 遍历时 操作 CopyOnWriteArrayList
-//        opertateCopyOnWriteArrayLis();
+        opertateCopyOnWriteArrayLis();
     }
 
     private static void operateListSynchronized() {
@@ -92,6 +92,8 @@ class CopyOnWriteArrayListOperator implements Runnable {
 
             list.add("=DD=");
         }
+
+        System.out.println(list.size());
 
     }
 

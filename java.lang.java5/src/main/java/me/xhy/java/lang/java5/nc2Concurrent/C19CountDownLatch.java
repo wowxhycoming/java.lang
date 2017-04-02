@@ -6,6 +6,9 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by xuhuaiyu-macpro on 2017/3/31.
+ *
+ * 一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。
+ * 用给定的计数 初始化 CountDownLatch。由于调用了 countDown() 方法，所以在当前计数到达零之前，await 方法会一直受阻塞。之后，会释放所有等待的线程，await 的所有后续调用都将立即返回。这种现象只出现一次——计数无法被重置。如果需要重置计数，请考虑使用 CyclicBarrier。
  */
 public class C19CountDownLatch {
 
@@ -33,7 +36,9 @@ public class C19CountDownLatch {
             exec.submit(run);
         }
         System.out.println("Game Start");
+        // 让要有线程开始
         begin.countDown();
+        // 等待所有线程的 countDown
         end.await();
         System.out.println("Game Over");
         exec.shutdown();
