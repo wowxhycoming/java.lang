@@ -16,7 +16,7 @@ package me.xhy.java.lang.java5.nc2Concurrent;
  * 1. 非静态方法的锁默认为 this,  静态方法的锁为 对应的 Class 实例
  * 2. 某一个时刻内，只能有一个线程持有锁，无论几个方法。
  */
-public class C7Thread8LockSize {
+public class C7Thread9LockSize {
 
     public static void main(String[] args) {
 
@@ -44,8 +44,9 @@ public class C7Thread8LockSize {
         // 两个对象的方法中，锁都是 Object.class
 //        s8();
 
-
-
+        // 可重入锁，也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。
+        // 在JAVA环境下 ReentrantLock 和synchronized 都是 可重入锁
+        s9();
     }
 
 
@@ -217,6 +218,12 @@ public class C7Thread8LockSize {
 
     }
 
+    private static void s9() {
+        Number9 number9 = new Number9();
+
+        new Thread(() -> number9.method1()).start();
+    }
+
 }
 
 class Number1 {
@@ -352,4 +359,21 @@ class Number8 {
         System.out.println("two");
     }
 
+}
+
+class Number9 {
+
+    public synchronized static void method1() {
+        System.out.println("method1");
+        method2();
+    }
+
+    public synchronized static void method2() {
+        System.out.println("method1");
+        method3();
+    }
+
+    public synchronized static void method3() {
+        System.out.println("method1");
+    }
 }
