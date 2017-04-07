@@ -25,6 +25,12 @@ public class C2Atomic {
         // 4. 模拟 CAS
 //        simulationCAS();
 
+        // 5. atomic 只能保证一个操作的原子性，不能保证多个操作的原子性
+        // 最终的运算结果一定是正确的，因为 Atomic 提供了保障。
+        // 但是每个线程的输出不一定都是整10倍，是因为方法内的多个 Atomic 操作不是原子的。
+        add10();
+
+
     }
 
     private static void ipp() {
@@ -75,6 +81,13 @@ public class C2Atomic {
                     System.out.println(b);
                 }
             }).start();
+        }
+    }
+
+    public static void add10() {
+        MultiAtomicOption multiAtomicOption = new MultiAtomicOption();
+        for(int i=0; i<1000; i++) {
+            new Thread(multiAtomicOption, String.valueOf(i)).start();
         }
     }
 
@@ -199,3 +212,29 @@ class SimulationCompareAndSwap {
  *
  * AtomicStampedReference 它不是 AtomicReference 的子类，而是利用 AtomicReference 实现的一个储存引用和 Integer 组的扩展类
  */
+
+class MultiAtomicOption implements Runnable{
+
+    private static AtomicInteger i = new AtomicInteger(0);
+
+    private static void add10() {
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        i.addAndGet(1);
+        i.addAndGet(2);
+        i.addAndGet(3);
+        i.addAndGet(4); // + 10
+    }
+
+    @Override
+    public void run() {
+        add10();
+        System.out.println(i);
+    }
+
+}
