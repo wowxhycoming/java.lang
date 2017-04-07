@@ -156,7 +156,7 @@ class WaitAndNotify {
 
                 try {
                     // 商品已满，就不再生产
-                    this.wait();
+                    this.wait(); // wait() 会释放锁
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -164,7 +164,7 @@ class WaitAndNotify {
                 System.out.println(Thread.currentThread().getName() + " : " + ++product);
 
                 // 当有数据被产生时（有可用数据）
-                this.notifyAll();
+                this.notifyAll(); // notify() 不会释放锁；所有 wait() 的线程回在这以时刻都去争夺锁。
             }
         }
 
