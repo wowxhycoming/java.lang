@@ -9,8 +9,8 @@ import java.util.List;
  * Created by xuhuaiyu on 2017/2/7.
  */
 public class C5UseLambdaAppleGreenPredicate implements C5UseLambdaApplePredicate {
-    @Override
-    public boolean test(Apple apple) {
-        return "green".equals(apple.getColor());
-    }
+  @Override
+  public boolean test(Apple apple) {
+    return "green".equals(apple.getColor());
+  }
 }

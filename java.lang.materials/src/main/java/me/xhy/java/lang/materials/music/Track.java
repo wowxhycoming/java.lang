@@ -10,30 +10,30 @@ package me.xhy.java.lang.materials.music;
  */
 public final class Track {
 
-    private final String name;
-    private final int length;
+  private final String name;
+  private final int length;
 
-    public Track(String name, int length) {
-        this.name = name;
-        this.length = length;
-    }
+  public Track(String name, int length) {
+    this.name = name;
+    this.length = length;
+  }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * @return the length of the track in milliseconds.
-     */
-    public int getLength() {
-        return length;
-    }
+  /**
+   * @return the length of the track in milliseconds.
+   */
+  public int getLength() {
+    return length;
+  }
 
-    public Track copy() {
-        return new Track(name, length);
-    }
+  public Track copy() {
+    return new Track(name, length);
+  }
 
 }

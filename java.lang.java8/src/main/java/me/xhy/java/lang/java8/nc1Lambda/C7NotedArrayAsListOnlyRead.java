@@ -13,15 +13,15 @@ import static java.util.Arrays.asList;
  */
 public class C7NotedArrayAsListOnlyRead {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        ArrayList listRight = new ArrayList<>(Arrays.asList("1", "2", "3"));
-        // 更智能的自动类型推断，定义 和 实现 都没有显示的泛型
-        listRight.add("bingo");
-        System.out.println(listRight);
+    ArrayList listRight = new ArrayList<>(Arrays.asList("1", "2", "3"));
+    // 更智能的自动类型推断，定义 和 实现 都没有显示的泛型
+    listRight.add("bingo");
+    System.out.println(listRight);
 
-        List<String> listWrong = asList("1", "", "2");
-        listWrong.add("can not be success, must be throw exception, UnsupportedOperationException, but why");
+    List<String> listWrong = asList("1", "", "2");
+    listWrong.add("can not be success, must be throw exception, UnsupportedOperationException, but why");
 
 		/*
         为什么不能对 Arrays.asList() 返回的引用进行 add 和 remove
@@ -43,5 +43,5 @@ public class C7NotedArrayAsListOnlyRead {
 		 */
 
 
-    }
+  }
 }

@@ -8,5 +8,5 @@ import java.io.IOException;
  */
 @FunctionalInterface
 public interface C6BufferedReaderProcessor {
-    String process(BufferedReader br) throws IOException;
+  String process(BufferedReader br) throws IOException;
 }

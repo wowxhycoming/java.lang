@@ -5,6 +5,6 @@ package me.xhy.java.lang.materials.dish;
  */
 
 public enum CaloricLevel {
-    DIET, NORMAL, FAT
+  DIET, NORMAL, FAT
 }
 

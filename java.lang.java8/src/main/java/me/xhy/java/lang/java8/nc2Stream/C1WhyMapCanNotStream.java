@@ -5,7 +5,7 @@ package me.xhy.java.lang.java8.nc2Stream;
  */
 public class C1WhyMapCanNotStream {
 
-    public static void main(String[] args) {
-        // stream 是 Collection 接口的静态方法， Map 不是 Collection 的孩子
-    }
+  public static void main(String[] args) {
+    // stream 是 Collection 接口的静态方法， Map 不是 Collection 的孩子
+  }
 }

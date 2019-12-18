@@ -7,34 +7,34 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by xuhuaiyu-macpro on 2017/3/27.
- *
+ * <p>
  * BlockingQueue 是 Queue 的子接口
- *
+ * <p>
  * BlockingQueue拿走元素时，如果队列为空，阻塞等待会有两种情况：
- *   一种是一直等待直到队列不为空，这种情况调用take方法， E take() throws InterruptedException;
- *   另一种就是设定一个超时时间，一直等到超时，这种情况调用的是pool方法， E poll(long timeout, TimeUnit unit) throws InterruptedException;
- *
+ * 一种是一直等待直到队列不为空，这种情况调用take方法， E take() throws InterruptedException;
+ * 另一种就是设定一个超时时间，一直等到超时，这种情况调用的是pool方法， E poll(long timeout, TimeUnit unit) throws InterruptedException;
+ * <p>
  * 同样对于添加元素来说，也有两种情况：
- *   一直等待使用put方法，void put(E e) throws InterruptedException;
- *   超时等待使用offer方法，boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException;
- *
+ * 一直等待使用put方法，void put(E e) throws InterruptedException;
+ * 超时等待使用offer方法，boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException;
+ * <p>
  * BlockingQueue的父接口 Queue 关于拿走元素的接口有两个：remove 和 pool。
- *   两者的区别在于当队列为空时前者会抛出NoSuchElementException，而后者返回null。
+ * 两者的区别在于当队列为空时前者会抛出NoSuchElementException，而后者返回null。
  * 添加元素的接口也有两个：add和offer。
- *   两者的区别在于当队列为满时前者会抛出IllegalStateException，而后者返回false。
- *
+ * 两者的区别在于当队列为满时前者会抛出IllegalStateException，而后者返回false。
+ * <p>
  * 总结一下：
  * Queue 定义了操作的操作是否等待。
  * BlockingQueue 更细化的定义了等待多久。
- *
+ * <p>
  * 一般来说 Queue 类型的数据结构会有两种实现：数组和链表。
- *   对应到BlockingQueue就是ArrayBlockingQueue和LinkedBlockingQueue，两者都是基于AbstractQueue实现的。
- *
- *   public class ArrayBlockingQueue<E> extends AbstractQueue<E> implements BlockingQueue<E>, java.io.Serializable
- *   public class LinkedBlockingQueue<E> extends AbstractQueue<E> implements BlockingQueue<E>, java.io.Serializable
- *
+ * 对应到BlockingQueue就是ArrayBlockingQueue和LinkedBlockingQueue，两者都是基于AbstractQueue实现的。
+ * <p>
+ * public class ArrayBlockingQueue<E> extends AbstractQueue<E> implements BlockingQueue<E>, java.io.Serializable
+ * public class LinkedBlockingQueue<E> extends AbstractQueue<E> implements BlockingQueue<E>, java.io.Serializable
+ * <p>
  * AbstractQueue 只是实现了add 和remove 方法，而且很有意思的是这两个方法都是借助他们对应的无异常版本的方法 offer 和 pool 来实现的。
- *
+ * <p>
  * BlockingQueue
  * 1. 支持两个附加操作的 Queue，这两个操作是：检索元素时等待队列变为非空，以及存储元素时等待空间变得可用。
  * 2. BlockingQueue 不接受 null 元素。试图 add、put 或 offer 一个 null 元素时，某些实现会抛出 NullPointerException。
@@ -52,45 +52,45 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class C9BlockingQueue extends Thread {
 
-    public static BlockingQueue<String> queue = new LinkedBlockingQueue<String>(4);
-    private int index;
+  public static BlockingQueue<String> queue = new LinkedBlockingQueue<String>(4);
+  private int index;
 
-    public C9BlockingQueue(int i) {
-        this.index = i;
+  public C9BlockingQueue(int i) {
+    this.index = i;
+  }
+
+  public void run() {
+    try {
+      queue.put(String.valueOf(this.index));
+      System.out.println("{" + this.index + "} in queue!");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void main(String args[]) {
+    ExecutorService service = Executors.newCachedThreadPool();
+    for (int i = 0; i < 10; i++) {
+      service.submit(new C9BlockingQueue(i));
     }
 
-    public void run() {
+    Thread thread = new Thread() {
+      public void run() {
         try {
-            queue.put(String.valueOf(this.index));
-            System.out.println("{" + this.index + "} in queue!");
+          while (true) {
+            Thread.sleep((int) (Math.random() * 1000));
+            if (C9BlockingQueue.queue.isEmpty())
+              break;
+            String str = C9BlockingQueue.queue.take();
+            System.out.println(str + " has take!");
+          }
         } catch (Exception e) {
-            e.printStackTrace();
+          e.printStackTrace();
         }
-    }
-
-    public static void main(String args[]) {
-        ExecutorService service = Executors.newCachedThreadPool();
-        for (int i = 0; i < 10; i++) {
-            service.submit(new C9BlockingQueue(i));
-        }
-
-        Thread thread = new Thread() {
-            public void run() {
-                try {
-                    while (true) {
-                        Thread.sleep((int) (Math.random() * 1000));
-                        if (C9BlockingQueue.queue.isEmpty())
-                            break;
-                        String str = C9BlockingQueue.queue.take();
-                        System.out.println(str + " has take!");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        service.submit(thread);
-        service.shutdown();
-    }
+      }
+    };
+    service.submit(thread);
+    service.shutdown();
+  }
 
 }

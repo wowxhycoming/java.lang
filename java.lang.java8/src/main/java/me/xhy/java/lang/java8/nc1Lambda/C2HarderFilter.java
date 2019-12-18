@@ -10,18 +10,18 @@ import java.util.List;
  */
 public class C2HarderFilter {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        Data data = new Data();
-        C2HarderFilterOldEx c = new C2HarderFilterOldEx();
+    Data data = new Data();
+    C2HarderFilterOldEx c = new C2HarderFilterOldEx();
 
-        List<Object> list = Data.getSomeData();
-        List<Integer> integers = c.choseInteger(list, o -> {
-            if (o instanceof Integer) return true;
-            return false;
-        });
+    List<Object> list = Data.getSomeData();
+    List<Integer> integers = c.choseInteger(list, o -> {
+      if (o instanceof Integer) return true;
+      return false;
+    });
 
-        integers.forEach(System.out::println);
+    integers.forEach(System.out::println);
 
-    }
+  }
 }

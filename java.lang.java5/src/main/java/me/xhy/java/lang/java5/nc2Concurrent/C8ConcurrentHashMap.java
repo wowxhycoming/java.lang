@@ -44,9 +44,9 @@ import java.util.Map;
  */
 public class C8ConcurrentHashMap {
 
-    // Map 怎么用 ConcurrentMap 就怎么用，没什么特别的
-    public static void main(String[] args) {
-        // 增加了复合操作
+  // Map 怎么用 ConcurrentMap 就怎么用，没什么特别的
+  public static void main(String[] args) {
+    // 增加了复合操作
 
         /* 1. putIfAbsent
          * 方法签名 V putIfAbsent(K key, V value);
@@ -66,7 +66,7 @@ public class C8ConcurrentHashMap {
          * 方法签名 V replace(K key, V value);
          */
 
-        // 通过 ConcurrentMap 多出来的方法可以看到多线程中一个很重要的概念： compare。compare 的作用就是为了保证 value 的一致性。
+    // 通过 ConcurrentMap 多出来的方法可以看到多线程中一个很重要的概念： compare。compare 的作用就是为了保证 value 的一致性。
 
-    }
+  }
 }

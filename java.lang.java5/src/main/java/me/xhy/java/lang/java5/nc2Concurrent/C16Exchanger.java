@@ -9,53 +9,53 @@ import java.util.concurrent.Executors;
  */
 public class C16Exchanger {
 
-    public static void main(String[] args) {
-        Exchanger<String> exchanger = new Exchanger<>();
-        ExecutorService pool = Executors.newCachedThreadPool();
+  public static void main(String[] args) {
+    Exchanger<String> exchanger = new Exchanger<>();
+    ExecutorService pool = Executors.newCachedThreadPool();
 
-        Car car = new Car(exchanger);
-        Bike bike = new Bike(exchanger);
+    Car car = new Car(exchanger);
+    Bike bike = new Bike(exchanger);
 
-        car.start();
-        bike.start();
+    car.start();
+    bike.start();
 
-        System.out.println("Main end!");
-    }
+    System.out.println("Main end!");
+  }
 
 }
 
 class Car extends Thread {
-    private Exchanger<String> exchanger;
+  private Exchanger<String> exchanger;
 
-    public Car(Exchanger<String> exchanger) {
-        super("Car Thread : ");
-        this.exchanger = exchanger;
-    }
+  public Car(Exchanger<String> exchanger) {
+    super("Car Thread : ");
+    this.exchanger = exchanger;
+  }
 
-    @Override
-    public void run() {
-        try {
-            System.out.println(Thread.currentThread().getName() + ": " + exchanger.exchange("Car"));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+  @Override
+  public void run() {
+    try {
+      System.out.println(Thread.currentThread().getName() + ": " + exchanger.exchange("Car"));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+  }
 }
 
 class Bike extends Thread {
-    private Exchanger<String> exchanger;
+  private Exchanger<String> exchanger;
 
-    public Bike(Exchanger<String> exchanger) {
-        super("Bike Thread : ");
-        this.exchanger = exchanger;
-    }
+  public Bike(Exchanger<String> exchanger) {
+    super("Bike Thread : ");
+    this.exchanger = exchanger;
+  }
 
-    @Override
-    public void run() {
-        try {
-            System.out.println(Thread.currentThread().getName() + ": " + exchanger.exchange("Bike"));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+  @Override
+  public void run() {
+    try {
+      System.out.println(Thread.currentThread().getName() + ": " + exchanger.exchange("Bike"));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+  }
 }

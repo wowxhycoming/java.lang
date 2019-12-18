@@ -5,9 +5,9 @@ package me.xhy.java.lang.java5.nc2Concurrent;
  */
 public class C4ProducerAndConsumer {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-//        onlySyncMehotd();
+    onlySyncMehotd();
 
 //        waitAndNotify();
 
@@ -16,208 +16,208 @@ public class C4ProducerAndConsumer {
 //        noNotifyMorePairs();
 
 //        theRightWayOfWait();
-    }
+  }
 
-    // 只在共享类中的 访问共享数据的方法上进行同步
-    private static void onlySyncMehotd() {
+  // 只在共享类中的 访问共享数据的方法上进行同步
+  private static void onlySyncMehotd() {
 
-        OnlySyncMethod onlySyncMehotd = new OnlySyncMethod();
+    OnlySyncMethod onlySyncMehotd = new OnlySyncMethod();
 
-        onlySyncMehotd.test();
+    onlySyncMehotd.test();
 
-    }
+  }
 
-    private static void waitAndNotify() {
+  private static void waitAndNotify() {
 
-        WaitAndNotify waitAndNotify = new WaitAndNotify();
+    WaitAndNotify waitAndNotify = new WaitAndNotify();
 
-        waitAndNotify.test();
+    waitAndNotify.test();
 
-    }
+  }
 
-    private static void noNotifyOnePair() {
-        NoNotify onNotify = new NoNotify();
+  private static void noNotifyOnePair() {
+    NoNotify onNotify = new NoNotify();
 
-        onNotify.testOnePair();
-    }
+    onNotify.testOnePair();
+  }
 
-    private static void noNotifyMorePairs() {
-        NoNotify onNotify = new NoNotify();
+  private static void noNotifyMorePairs() {
+    NoNotify onNotify = new NoNotify();
 
-        onNotify.testMorePairs();
-    }
+    onNotify.testMorePairs();
+  }
 
-    private static void theRightWayOfWait() {
-        TheRightWayOfWait theRightWayOfWait = new TheRightWayOfWait();
+  private static void theRightWayOfWait() {
+    TheRightWayOfWait theRightWayOfWait = new TheRightWayOfWait();
 
-        theRightWayOfWait.testMorePairs();
-    }
+    theRightWayOfWait.testMorePairs();
+  }
 
 }
 
 // 没有使用 等待-唤醒 机制
 class OnlySyncMethod {
 
-    public void test() {
+  public void test() {
 
-        Clerk clerk = new Clerk();
+    Clerk clerk = new Clerk();
 
-        // 都访问共享数据
-        Producer producer = new Producer(clerk);
-        Consumer consumer = new Consumer(clerk);
+    // 都访问共享数据
+    Producer producer = new Producer(clerk);
+    Consumer consumer = new Consumer(clerk);
 
-        new Thread(producer, "生产者").start();
-        new Thread(consumer, "消费者").start();
+    new Thread(producer, "生产者").start();
+    new Thread(consumer, "消费者").start();
 
+  }
+
+  // 店员
+  // product 为商品数量，设定为最大是10，不可进货；最少是0，不可卖货。
+  class Clerk {
+    private int product = 0;
+
+    // 进货
+    public synchronized void get() {
+      if (product >= 10) {
+        System.out.println("商品已满！");
+      } else {
+        System.out.println(Thread.currentThread().getName() + " : " + ++product);
+      }
     }
 
-    // 店员
-    // product 为商品数量，设定为最大是10，不可进货；最少是0，不可卖货。
-    class Clerk {
-        private int product = 0;
+    public synchronized void sale() {
+      if (product <= 0) {
+        System.out.println("缺货！");
+      } else {
+        System.out.println(Thread.currentThread().getName() + " : " + --product);
+      }
+    }
+  }
 
-        // 进货
-        public synchronized void get() {
-            if (product >= 10) {
-                System.out.println("商品已满！");
-            } else {
-                System.out.println(Thread.currentThread().getName() + " : " + ++product);
-            }
-        }
+  class Producer implements Runnable {
 
-        public synchronized void sale() {
-            if (product <= 0) {
-                System.out.println("缺货！");
-            } else {
-                System.out.println(Thread.currentThread().getName() + " : " + --product);
-            }
-        }
+    // 持有店员，不能自己 new ，要访问共享数据，要不就是毫不相干的多个店员，不会有冲突。使用构造器传入共享数据。
+    Clerk clerk;
+
+    public Producer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Producer implements Runnable {
+    // 进货
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        clerk.get();
+      }
+    }
+  }
 
-        // 持有店员，不能自己 new ，要访问共享数据，要不就是毫不相干的多个店员，不会有冲突。使用构造器传入共享数据。
-        Clerk clerk;
+  class Consumer implements Runnable {
 
-        public Producer(Clerk clerk) {
-            this.clerk = clerk;
-        }
+    Clerk clerk;
 
-        // 进货
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                clerk.get();
-            }
-        }
+    public Consumer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Consumer implements Runnable {
-
-        Clerk clerk;
-
-        public Consumer(Clerk clerk) {
-            this.clerk = clerk;
-        }
-
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                clerk.sale();
-            }
-        }
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        clerk.sale();
+      }
     }
+  }
 
 }
 
 class WaitAndNotify {
 
-    public void test() {
+  public void test() {
 
-        WaitAndNotify.Clerk clerk = new WaitAndNotify.Clerk();
+    WaitAndNotify.Clerk clerk = new WaitAndNotify.Clerk();
 
-        // 都访问共享数据
-        WaitAndNotify.Producer producer = new WaitAndNotify.Producer(clerk);
-        WaitAndNotify.Consumer consumer = new WaitAndNotify.Consumer(clerk);
+    // 都访问共享数据
+    WaitAndNotify.Producer producer = new WaitAndNotify.Producer(clerk);
+    WaitAndNotify.Consumer consumer = new WaitAndNotify.Consumer(clerk);
 
-        new Thread(producer, "生产者").start();
-        new Thread(consumer, "消费者").start();
+    new Thread(producer, "生产者").start();
+    new Thread(consumer, "消费者").start();
 
+  }
+
+  // 店员
+  class Clerk {
+    private int product = 0;
+
+    // 进货
+    public synchronized void get() {
+      if (product >= 10) {
+        System.out.println("商品已满！");
+
+        try {
+          // 商品已满，就不再生产
+          this.wait(); // wait() 会释放锁
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      } else {
+        System.out.println(Thread.currentThread().getName() + " : " + ++product);
+
+        // 当有数据被产生时（有可用数据）
+        this.notifyAll(); // notify() 不会释放锁；所有 wait() 的线程会在这一被唤醒的时刻都去争夺锁。
+      }
     }
 
-    // 店员
-    class Clerk {
-        private int product = 0;
+    public synchronized void sale() {
+      if (product <= 0) {
+        System.out.println("缺货！");
 
-        // 进货
-        public synchronized void get() {
-            if (product >= 10) {
-                System.out.println("商品已满！");
-
-                try {
-                    // 商品已满，就不再生产
-                    this.wait(); // wait() 会释放锁
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println(Thread.currentThread().getName() + " : " + ++product);
-
-                // 当有数据被产生时（有可用数据）
-                this.notifyAll(); // notify() 不会释放锁；所有 wait() 的线程回在这以时刻都去争夺锁。
-            }
+        try {
+          this.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+      } else {
+        System.out.println(Thread.currentThread().getName() + " : " + --product);
 
-        public synchronized void sale() {
-            if (product <= 0) {
-                System.out.println("缺货！");
+        // 有空位了（可容）
+        this.notifyAll();
+      }
+    }
+  }
 
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println(Thread.currentThread().getName() + " : " + --product);
+  class Producer implements Runnable {
 
-                // 有空位了（可容）
-                this.notifyAll();
-            }
-        }
+    Clerk clerk;
+
+    public Producer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Producer implements Runnable {
+    // 进货
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        clerk.get();
+      }
+    }
+  }
 
-        Clerk clerk;
+  class Consumer implements Runnable {
 
-        public Producer(Clerk clerk) {
-            this.clerk = clerk;
-        }
+    Clerk clerk;
 
-        // 进货
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                clerk.get();
-            }
-        }
+    public Consumer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Consumer implements Runnable {
-
-        Clerk clerk;
-
-        public Consumer(Clerk clerk) {
-            this.clerk = clerk;
-        }
-
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                clerk.sale();
-            }
-        }
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        clerk.sale();
+      }
     }
+  }
 
 }
 
@@ -252,218 +252,218 @@ class WaitAndNotify {
  */
 class NoNotify {
 
-    public void testOnePair() {
+  public void testOnePair() {
 
-        NoNotify.Clerk clerk = new NoNotify.Clerk();
+    NoNotify.Clerk clerk = new NoNotify.Clerk();
 
-        // 都访问共享数据
-        NoNotify.Producer producer = new NoNotify.Producer(clerk);
-        NoNotify.Consumer consumer = new NoNotify.Consumer(clerk);
+    // 都访问共享数据
+    NoNotify.Producer producer = new NoNotify.Producer(clerk);
+    NoNotify.Consumer consumer = new NoNotify.Consumer(clerk);
 
-        new Thread(producer, "生产者").start();
-        new Thread(consumer, "消费者").start();
+    new Thread(producer, "生产者").start();
+    new Thread(consumer, "消费者").start();
 
-    }
+  }
 
-    public void testMorePairs() {
+  public void testMorePairs() {
 
-        NoNotify.Clerk clerk = new NoNotify.Clerk();
+    NoNotify.Clerk clerk = new NoNotify.Clerk();
 
-        // 都访问共享数据
-        NoNotify.Producer producer = new NoNotify.Producer(clerk);
-        NoNotify.Consumer consumer = new NoNotify.Consumer(clerk);
+    // 都访问共享数据
+    NoNotify.Producer producer = new NoNotify.Producer(clerk);
+    NoNotify.Consumer consumer = new NoNotify.Consumer(clerk);
 
-        new Thread(producer, "生产者-A").start();
-        new Thread(consumer, "消费者-B").start();
+    new Thread(producer, "生产者-A").start();
+    new Thread(consumer, "消费者-B").start();
 
-        new Thread(producer, "生产者-C").start();
-        new Thread(consumer, "消费者-D").start();
+    new Thread(producer, "生产者-C").start();
+    new Thread(consumer, "消费者-D").start();
 
-    }
+  }
 
-    // 店员
-    class Clerk {
-        private int product = 0;
+  // 店员
+  class Clerk {
+    private int product = 0;
 
-        // 进货
-        public synchronized void get() {
-            // 让线程交替执行
-            if (product >= 1) {
-                System.out.println("商品已满！");
+    // 进货
+    public synchronized void get() {
+      // 让线程交替执行
+      if (product >= 1) {
+        System.out.println("商品已满！");
 
-                try {
-                    // 商品已满，就不再生产
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+          // 商品已满，就不再生产
+          this.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
 //            else {
-            System.out.println(Thread.currentThread().getName() + " : " + ++product);
+      System.out.println(Thread.currentThread().getName() + " : " + ++product);
 
-            // 当有数据被产生时（有可用数据）
-            this.notifyAll();
+      // 当有数据被产生时（有可用数据）
+      this.notifyAll();
 //            }
+    }
+
+    public synchronized void sale() {
+      if (product <= 0) {
+        System.out.println("缺货！！");
+
+        try {
+          this.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
-
-        public synchronized void sale() {
-            if (product <= 0) {
-                System.out.println("缺货！！");
-
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+      }
 //            else {
-            System.out.println(Thread.currentThread().getName() + " : " + --product);
+      System.out.println(Thread.currentThread().getName() + " : " + --product);
 
-            // 有空位了（可容）
-            this.notifyAll();
+      // 有空位了（可容）
+      this.notifyAll();
 //            }
-        }
+    }
+  }
+
+  class Producer implements Runnable {
+
+    Clerk clerk;
+
+    public Producer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Producer implements Runnable {
-
-        Clerk clerk;
-
-        public Producer(Clerk clerk) {
-            this.clerk = clerk;
+    // 进货
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        try {
+          Thread.sleep(300);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+        clerk.get();
+      }
+    }
+  }
 
-        // 进货
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                clerk.get();
-            }
-        }
+  class Consumer implements Runnable {
+
+    Clerk clerk;
+
+    public Consumer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Consumer implements Runnable {
-
-        Clerk clerk;
-
-        public Consumer(Clerk clerk) {
-            this.clerk = clerk;
-        }
-
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                clerk.sale();
-            }
-        }
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        clerk.sale();
+      }
     }
+  }
 
 }
 
 
 class TheRightWayOfWait {
 
-    public void testMorePairs() {
+  public void testMorePairs() {
 
-        TheRightWayOfWait.Clerk clerk = new TheRightWayOfWait.Clerk();
+    TheRightWayOfWait.Clerk clerk = new TheRightWayOfWait.Clerk();
 
-        // 都访问共享数据
-        TheRightWayOfWait.Producer producer = new TheRightWayOfWait.Producer(clerk);
-        TheRightWayOfWait.Consumer consumer = new TheRightWayOfWait.Consumer(clerk);
+    // 都访问共享数据
+    TheRightWayOfWait.Producer producer = new TheRightWayOfWait.Producer(clerk);
+    TheRightWayOfWait.Consumer consumer = new TheRightWayOfWait.Consumer(clerk);
 
-        new Thread(producer, "生产者-A").start();
-        new Thread(consumer, "消费者-B").start();
+    new Thread(producer, "生产者-A").start();
+    new Thread(consumer, "消费者-B").start();
 
-        new Thread(producer, "生产者-C").start();
-        new Thread(consumer, "消费者-D").start();
+    new Thread(producer, "生产者-C").start();
+    new Thread(consumer, "消费者-D").start();
 
-    }
+  }
 
-    // 店员
-    class Clerk {
-        private int product = 0;
+  // 店员
+  class Clerk {
+    private int product = 0;
 
-        // 进货
-        public synchronized void get() {
-            // 让线程交替执行
-            while (product >= 1) {
-                System.out.println(Thread.currentThread().getName() + " : " + "商品已满！");
+    // 进货
+    public synchronized void get() {
+      // 让线程交替执行
+      while (product >= 1) {
+        System.out.println(Thread.currentThread().getName() + " : " + "商品已满！");
 
-                try {
-                    // 商品已满，就不再生产
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+          // 商品已满，就不再生产
+          this.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
 //            else {
-            System.out.println(Thread.currentThread().getName() + " : " + ++product);
+      System.out.println(Thread.currentThread().getName() + " : " + ++product);
 
-            // 当有数据被产生时（有可用数据）
-            this.notifyAll();
+      // 当有数据被产生时（有可用数据）
+      this.notifyAll();
 //            }
+    }
+
+    public synchronized void sale() {
+      while (product <= 0) {
+        System.out.println(Thread.currentThread().getName() + " : " + "缺货！！");
+
+        try {
+          this.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
-
-        public synchronized void sale() {
-            while (product <= 0) {
-                System.out.println(Thread.currentThread().getName() + " : " + "缺货！！");
-
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+      }
 //            else {
-            System.out.println(Thread.currentThread().getName() + " : " + --product);
+      System.out.println(Thread.currentThread().getName() + " : " + --product);
 
-            // 有空位了（可容）
-            this.notifyAll();
+      // 有空位了（可容）
+      this.notifyAll();
 //            }
-        }
+    }
+  }
+
+  class Producer implements Runnable {
+
+    Clerk clerk;
+
+    public Producer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Producer implements Runnable {
-
-        Clerk clerk;
-
-        public Producer(Clerk clerk) {
-            this.clerk = clerk;
+    // 进货
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        try {
+          Thread.sleep(300);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+        clerk.get();
+      }
+    }
+  }
 
-        // 进货
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                clerk.get();
-            }
-        }
+  class Consumer implements Runnable {
+
+    Clerk clerk;
+
+    public Consumer(Clerk clerk) {
+      this.clerk = clerk;
     }
 
-    class Consumer implements Runnable {
-
-        Clerk clerk;
-
-        public Consumer(Clerk clerk) {
-            this.clerk = clerk;
-        }
-
-        @Override
-        public void run() {
-            for (int i = 0; i < 20; i++) {
-                clerk.sale();
-            }
-        }
+    @Override
+    public void run() {
+      for (int i = 0; i < 20; i++) {
+        clerk.sale();
+      }
     }
+  }
 
 }

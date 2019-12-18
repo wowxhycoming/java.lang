@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class _AtomicSupport {
 
-    // 每个程序都是独立运行，每次都从零计数
-    public static AtomicInteger i = new AtomicInteger();
+  // 每个程序都是独立运行，每次都从零计数
+  public static AtomicInteger i = new AtomicInteger();
 
 }

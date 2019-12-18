@@ -7,8 +7,8 @@ package me.xhy.java.lang.java8.ncXConcurrent;
  * 1.8 更改底层实现
  * <p>
  * 1.5 信息： （引入 java.lang.java5 项目）
- *
- * @see me.xhy.java.lang.java5.nc2Concurrent.C2ConcurrentHashMap
+ * <p>
+ * // @see me.xhy.java.lang.java5.nc2Concurrent.C2ConcurrentHashMap
  * <p>
  * 1.8 不再使用分段锁机制，改为 CAS 算法实现。
  */

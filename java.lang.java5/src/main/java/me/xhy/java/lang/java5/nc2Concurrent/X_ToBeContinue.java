@@ -5,7 +5,7 @@ package me.xhy.java.lang.java5.nc2Concurrent;
  */
 public class X_ToBeContinue {
 
-    // 1. atomic 其他类用法
-    // 2. lock 其他类用法
+  // 1. atomic 其他类用法
+  // 2. lock 其他类用法
 
 }

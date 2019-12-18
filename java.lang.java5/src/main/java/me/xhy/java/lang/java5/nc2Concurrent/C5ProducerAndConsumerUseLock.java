@@ -9,113 +9,113 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class C5ProducerAndConsumerUseLock {
 
-    public static void main(String[] args) {
-        Clerk clerk = new Clerk();
+  public static void main(String[] args) {
+    Clerk clerk = new Clerk();
 
-        Producer pro = new Producer(clerk);
-        Consumer con = new Consumer(clerk);
+    Producer pro = new Producer(clerk);
+    Consumer con = new Consumer(clerk);
 
-        new Thread(pro, "生产者 A").start();
-        new Thread(con, "消费者 B").start();
+    new Thread(pro, "生产者 A").start();
+    new Thread(con, "消费者 B").start();
 
 //        new Thread(pro, "生产者 C").start();
 //        new Thread(con, "消费者 D").start();
-    }
+  }
 
 }
 
 class Clerk {
-    private int product = 0;
+  private int product = 0;
 
-    private Lock lock = new ReentrantLock();
-    // 获取 Condition
-    private Condition condition = lock.newCondition();
+  private Lock lock = new ReentrantLock();
+  // 获取 Condition
+  private Condition condition = lock.newCondition();
 
-    // 进货
-    public void get() {
-        lock.lock();
+  // 进货
+  public void get() {
+    lock.lock();
 
-        try {
-            if (product >= 1) { // 为了避免虚假唤醒，应该总是使用在循环中。
-                System.out.println(Thread.currentThread().getName() + " : " + "产品已满！");
-
-                try {
-                    // 使用 lock 的等待方式
-                    condition.await(); // 被唤醒（多个线程）不意味着条件一定满足，只能代表有满足的可能，至少一个线程是可以正常工作的
-                } catch (InterruptedException e) {
-                }
-
-            }
-            System.out.println(Thread.currentThread().getName() + " : " + ++product);
-
-            condition.signalAll(); // 使用 lock 的唤醒方式
-        } finally {
-            lock.unlock();
-        }
-
-    }
-
-    // 卖货
-    public void sale() {
-        lock.lock();
+    try {
+      if (product >= 1) { // 为了避免虚假唤醒，应该总是使用在循环中。
+        System.out.println(Thread.currentThread().getName() + " : " + "产品已满！");
 
         try {
-            if (product <= 0) {
-                System.out.println(Thread.currentThread().getName() + " : " + "缺货！");
-
-                try {
-                    condition.await();
-                } catch (InterruptedException e) {
-                }
-            }
-
-            System.out.println(Thread.currentThread().getName() + " : " + --product);
-
-            condition.signalAll();
-
-        } finally {
-            lock.unlock();
+          // 使用 lock 的等待方式
+          condition.await(); // 被唤醒（多个线程）不意味着条件一定满足，只能代表有满足的可能，至少一个线程是可以正常工作的
+        } catch (InterruptedException e) {
         }
+
+      }
+      System.out.println(Thread.currentThread().getName() + " : " + ++product);
+
+      condition.signalAll(); // 使用 lock 的唤醒方式
+    } finally {
+      lock.unlock();
     }
+
+  }
+
+  // 卖货
+  public void sale() {
+    lock.lock();
+
+    try {
+      if (product <= 0) {
+        System.out.println(Thread.currentThread().getName() + " : " + "缺货！");
+
+        try {
+          condition.await();
+        } catch (InterruptedException e) {
+        }
+      }
+
+      System.out.println(Thread.currentThread().getName() + " : " + --product);
+
+      condition.signalAll();
+
+    } finally {
+      lock.unlock();
+    }
+  }
 }
 
 // 生产者
 class Producer implements Runnable {
 
-    private Clerk clerk;
+  private Clerk clerk;
 
-    public Producer(Clerk clerk) {
-        this.clerk = clerk;
+  public Producer(Clerk clerk) {
+    this.clerk = clerk;
+  }
+
+  @Override
+  public void run() {
+    for (int i = 0; i < 20; i++) {
+      try {
+        Thread.sleep(200);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+      clerk.get();
     }
-
-    @Override
-    public void run() {
-        for (int i = 0; i < 20; i++) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            clerk.get();
-        }
-    }
+  }
 }
 
 // 消费者
 class Consumer implements Runnable {
 
-    private Clerk clerk;
+  private Clerk clerk;
 
-    public Consumer(Clerk clerk) {
-        this.clerk = clerk;
-    }
+  public Consumer(Clerk clerk) {
+    this.clerk = clerk;
+  }
 
-    @Override
-    public void run() {
-        for (int i = 0; i < 20; i++) {
-            clerk.sale();
-        }
+  @Override
+  public void run() {
+    for (int i = 0; i < 20; i++) {
+      clerk.sale();
     }
+  }
 
 }

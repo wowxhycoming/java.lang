@@ -18,63 +18,63 @@ import static java.util.stream.Collectors.toList;
  */
 public final class Album implements Music {
 
-    private String name;
-    private List<Track> tracks;
-    private List<Artist> musicians;
+  private String name;
+  private List<Track> tracks;
+  private List<Artist> musicians;
 
-    public Album(String name, List<Track> tracks, List<Artist> musicians) {
-        Objects.requireNonNull(name);
-        Objects.requireNonNull(tracks);
-        Objects.requireNonNull(musicians);
+  public Album(String name, List<Track> tracks, List<Artist> musicians) {
+    Objects.requireNonNull(name);
+    Objects.requireNonNull(tracks);
+    Objects.requireNonNull(musicians);
 
-        this.name = name;
-        this.tracks = new ArrayList<>(tracks);
-        this.musicians = new ArrayList<>(musicians);
-    }
+    this.name = name;
+    this.tracks = new ArrayList<>(tracks);
+    this.musicians = new ArrayList<>(musicians);
+  }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * @return the tracks
-     */
-    public Stream<Track> getTracks() {
-        return tracks.stream();
-    }
+  /**
+   * @return the tracks
+   */
+  public Stream<Track> getTracks() {
+    return tracks.stream();
+  }
 
-    /**
-     * Used in imperative code examples that need to iterate over a list
-     */
-    public List<Track> getTrackList() {
-        return unmodifiableList(tracks);
-    }
+  /**
+   * Used in imperative code examples that need to iterate over a list
+   */
+  public List<Track> getTrackList() {
+    return unmodifiableList(tracks);
+  }
 
-    /**
-     * @return the musicians
-     */
-    public Stream<Artist> getMusicians() {
-        return musicians.stream();
-    }
+  /**
+   * @return the musicians
+   */
+  public Stream<Artist> getMusicians() {
+    return musicians.stream();
+  }
 
-    /**
-     * Used in imperative code examples that need to iterate over a list
-     */
-    public List<Artist> getMusicianList() {
-        return unmodifiableList(musicians);
-    }
+  /**
+   * Used in imperative code examples that need to iterate over a list
+   */
+  public List<Artist> getMusicianList() {
+    return unmodifiableList(musicians);
+  }
 
-    public Artist getMainMusician() {
-        return musicians.get(0);
-    }
+  public Artist getMainMusician() {
+    return musicians.get(0);
+  }
 
-    public Album copy() {
-        List<Track> tracks = getTracks().map(Track::copy).collect(toList());
-        List<Artist> musicians = getMusicians().map(Artist::copy).collect(toList());
-        return new Album(name, tracks, musicians);
-    }
+  public Album copy() {
+    List<Track> tracks = getTracks().map(Track::copy).collect(toList());
+    List<Artist> musicians = getMusicians().map(Artist::copy).collect(toList());
+    return new Album(name, tracks, musicians);
+  }
 
 }
