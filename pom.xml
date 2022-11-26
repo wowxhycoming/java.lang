@@ -16,8 +16,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>9</source>
+          <target>9</target>
         </configuration>
       </plugin>
     </plugins>
@@ -28,6 +28,7 @@
     <module>java.lang.java8</module>
     <module>java.lang.materials</module>
     <module>java.lang.concurrent1.base</module>
+    <module>java.lang.java9</module>
     <!--<module>zat</module>-->
   </modules>
 

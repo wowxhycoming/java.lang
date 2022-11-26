@@ -74,13 +74,13 @@ public class C2CompletableFuture {
 //        compareParallelAndAsync(metalName, count+10);
 
     // 使用自定义执行器
-//        queryMetalPriceAsyncIndividuationExecutor(metalName);
+        queryMetalPriceAsyncIndividuationExecutor(metalName);
 
     // 对多个异步任务操作
 //        queryMetalPriceAndDiscountAsycn(metalName);
 
     // 多个独立异步任务合并
-        queryMetalAndRate(metalName, Money.Code.EUR);
+//        queryMetalAndRate(metalName, Money.Code.EUR);
 
 
     // before
@@ -303,11 +303,11 @@ public class C2CompletableFuture {
      * 任务的执行载体是线程，一个 cpu 可以在线程间切换，但是一个 thread 不能在多个任务间切换。
      */
     // 这里需要一个线程池，来配合出演
-    Executor executor = ExecutorSupply.getExecutor(count + 20);
+    Executor executor = ExecutorSupply.getExecutor(100);
 
     long start = System.nanoTime();
 
-    List<Bank> banks = Bank.getBanks(count + 20);
+    List<Bank> banks = Bank.getBanks(1000);
     Bank bank = new Bank("");
 
     bank.findPricesAsycn(metalName, banks, executor).forEach(System.out::println);
@@ -354,6 +354,8 @@ public class C2CompletableFuture {
    * 将多个独立的异步任务合并
    * 在银行查询完金属价格，如果要使用外币交易的时候，需要货币汇率转换
    * 这些银行默认本币为 RMB ， 对外币币种进行汇率转换 。 Money 类是一个枚举，提供货币类型
+   *
+   * queryRate 不依赖 getPrice 的结果，两个独立的任务，在最后一一对应
    */
   private static void queryMetalAndRate(String metal, Money.Code code) {
 
@@ -449,6 +451,7 @@ class Bank {
 
   // 计算价格的方法，使用金属名称 和 charAt 计算返回一个数值
   public double calculatePrice(String name) {
+    System.out.println("delay");
 
     Delay.delay();
 //        try {
